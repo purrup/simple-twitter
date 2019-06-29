@@ -8,7 +8,7 @@
         i.fas.fa-user-friends.fa-3x  Hear what people are talking about.
         i.fas.fa-comment.fa-3x  Join the conversation.
     .right-side
-      .login-form#login-form
+      .login-form
         form(action="/login" method='POST')
           .form-group
             label(for='email')
@@ -29,12 +29,15 @@
             button Log in
 
     .footer
+      .description
+        span © 2019 Simple Twitter
+        span Developers: miayang ianhuang jerrytsai
 
 </template>
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Logout'
 }
 </script>
 
@@ -100,7 +103,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
     display: grid;
     grid-template-columns: 30% 70%;
     grid-template-rows: 120px auto;
-    .login-form#login-form {
+    .login-form {
       grid-column: 2;
       grid-row: 1;
       justify-self: start;
@@ -209,6 +212,17 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
     grid-column: 1 / span 2;
     grid-row: 3;
     background-color: white;
+    width: 100%;
+    height: 100%;
+    .description {
+      color: #aab8c2;
+      font-size: 12px;
+      min-height: 45px;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+    }
   }
 }
 </style>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Logout from './views/Logout.vue'
 
 Vue.use(Router)
 
@@ -29,8 +28,13 @@ export default new Router({
     },
     {
       path: '/logout',
-      name: 'Logout',
-      component: Logout
+      name: 'logout',
+      component: () => import('./views/Logout.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Login.vue')
     }
   ]
 })
