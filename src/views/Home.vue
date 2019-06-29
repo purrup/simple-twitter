@@ -31,7 +31,8 @@ export default {
         {
           userId: 1,
           username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
+          text:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
           image: 'https://picsum.photos/100',
           createdAt: new Date().toISOString(),
           replyCounts: 3,
@@ -40,7 +41,8 @@ export default {
         {
           userId: 2,
           username: 'ianyshuang',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet',
+          text:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet',
           createdAt: new Date().toISOString(),
           image: 'https://picsum.photos/100',
           replyCounts: 5,
@@ -49,7 +51,8 @@ export default {
         {
           userId: 3,
           username: 'jerry',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
+          text:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
           createdAt: new Date().toISOString(),
           image: 'https://picsum.photos/100',
           replyCounts: 8,
@@ -58,7 +61,8 @@ export default {
         {
           userId: 1,
           username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
+          text:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
           createdAt: new Date().toISOString(),
           image: 'https://picsum.photos/100',
           replyCounts: 10,
@@ -67,7 +71,8 @@ export default {
         {
           userId: 2,
           username: 'ianyshuang',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
+          text:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
           createdAt: new Date().toISOString(),
           image: 'https://picsum.photos/100',
           replyCounts: 7,
@@ -78,31 +83,36 @@ export default {
         {
           id: 1,
           name: 'miayang0513',
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
           image: 'https://picsum.photos/100'
         },
         {
           id: 2,
           name: 'ianyshuang',
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
           image: 'https://picsum.photos/100'
         },
         {
           id: 3,
           name: 'jerry',
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
           image: 'https://picsum.photos/100'
         },
         {
           id: 4,
           name: 'bdotadot5',
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
           image: 'https://picsum.photos/100'
         },
         {
           id: 5,
           name: 'asdfghjkl',
-          description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
           image: 'https://picsum.photos/100'
         }
       ],

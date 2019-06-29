@@ -15,7 +15,7 @@ export default {
 <style lang="scss" scoped>
   #navbar {
     padding: 5px 0px;
-    background-color: #B1D2DF;
+    background-color: rgba(44,161,242,0.9);
     .container {
       width: 80%;
       margin: 0 auto;
