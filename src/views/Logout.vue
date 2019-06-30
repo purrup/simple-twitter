@@ -132,7 +132,6 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
           border-radius: 100px;
           -moz-border-radius: 100px;
           -webkit-border-radius: 100px;
-          width: auto;
           padding: 12px;
           font-weight: 800;
           border: 1px solid #1da1f2;
