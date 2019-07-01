@@ -1,26 +1,26 @@
 <template lang="pug">
   main
     .container
-      .login-wraper
-        form(action="/login" method='POST')
-          h1 Log in to Twitter
+      .signup-wraper
+        form(action="/signup" method='POST')
+          h1 Sign Up to Twitter
           .form-group
             label(for='email')
             input.form-control(type='email', name='email', placeholder='email', required='')
           .form-group
             label(for='password')
             input.form-control(type='text', name='password', placeholder='Password', required='')
-          button(type="submit") Log in
+          button(type="submit") Sign Up
       .footer
         .signup-helper
-          span New to Twitter?
-          a(href="/signup") Sign up now »
+          span Already have an account?
+          a(href="/login") Log in now »
 
 </template>
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Signup'
 }
 </script>
 
@@ -37,7 +37,7 @@ main {
     grid-template-columns: 10% auto 10%;
     grid-template-rows: 80% 20%;
 
-    .login-wraper {
+    .signup-wraper {
       grid-column: 2 / 3;
       grid-row: 1;
       form {
