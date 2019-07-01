@@ -19,19 +19,22 @@
             tweet(:tweet="tweet")
         div(id="replies")
           h3  Replies
+          template(v-for="reply in replies")
+            reply-card(:reply="reply" :key="reply.id")
         div(id="reply-input")
-          textarea(name="text" id="text" cols="30" rows="10" v-model="post")
-          button(@click="postTweet") Reply
-
+          textarea(name="text" id="text" cols="30" rows="10" v-model="replyContent")
+          button(@click="postReply") Reply
 </template>
 
 <script>
 import Tweet from '@/components/Tweet.vue'
+import ReplyCard from '@/components/ReplyCard.vue'
 
 export default {
   name: 'profile',
   components: {
-    Tweet
+    Tweet,
+    ReplyCard
   },
   data () {
     return {
@@ -53,12 +56,68 @@ export default {
           replyCounts: 3,
           likeCounts: 10
         }
-      ]
+      ],
+      replies: [
+        {
+          id: 1,
+          tweetId: 1,
+          userId: 1,
+          username: 'miayang0513',
+          comment:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
+          image: 'https://picsum.photos/100',
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 2,
+          tweetId: 1,
+          userId: 1,
+          username: 'miayang0513',
+          comment:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
+          image: 'https://picsum.photos/100',
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 3,
+          tweetId: 1,
+          userId: 1,
+          username: 'miayang0513',
+          comment:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
+          image: 'https://picsum.photos/100',
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 4,
+          tweetId: 1,
+          userId: 1,
+          username: 'miayang0513',
+          comment:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
+          image: 'https://picsum.photos/100',
+          createdAt: new Date().toISOString()
+        }
+      ],
+      replyContent: ''
     }
   },
   computed: {
     likes () {
       return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
+    }
+  },
+  methods: {
+    postReply () {
+      const newReply = {
+        id: 5,
+        userId: 1,
+        username: 'miayang0513',
+        comment: this.replyContent,
+        image: 'https://picsum.photos/100',
+        createdAt: new Date().toISOString()
+      }
+      this.replies.unshift(newReply)
     }
   }
 }
@@ -146,18 +205,21 @@ export default {
         height: 400px;
         display: grid;
         grid-template-rows: 27px auto;
-        grid-row-gap: 20px;
+        grid-row-gap: 10px;
+        overflow-y: scroll;
       }
       #reply-input {
       grid-row: 3;
-      display: flex;
-      flex-flow: row wrap;
+      display: grid;
+      grid-auto-rows: 50px;
+      grid-auto-flow: row;
+      grid-row-gap: 30px;
         textarea {
           padding: 0;
           border: 2px solid #1da1f2;
           border-radius: 4px;
-          width: 100%;
-          height: 50%;
+          width: 99%;
+          height: 100%;
           resize: none;
           outline: none;
           font-size: 20px;

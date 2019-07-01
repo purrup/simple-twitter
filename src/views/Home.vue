@@ -13,6 +13,7 @@
         div(id="users")
           template(v-for="user in users")
             user-card(:user="user" :key="user.id")
+
 </template>
 
 <script>
