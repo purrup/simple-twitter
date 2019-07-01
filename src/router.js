@@ -46,6 +46,10 @@ export default new Router({
       name: 'reply',
       component: () => import('./views/Reply.vue')
     },
-
+    {
+      path: '/users/:id/followings',
+      name: 'following',
+      component: () => import('./views/Following.vue')
+    }
   ]
 })
