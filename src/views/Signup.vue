@@ -5,6 +5,9 @@
         form(action="/signup" method='POST')
           h1 Sign Up to Twitter
           .form-group
+            label(for='name')
+            input.form-control(type='name', name='name', placeholder='name', required='')
+          .form-group
             label(for='email')
             input.form-control(type='email', name='email', placeholder='email', required='')
           .form-group
@@ -30,7 +33,7 @@ main {
   background-color: #E6ECF0;
   .container {
     width: 55%;
-    height: 35%;
+    height: 45%;
     margin: 10px auto 0 auto;
     background-color:white;
     display: grid;
