@@ -50,6 +50,11 @@ export default new Router({
       path: '/users/:id/followings',
       name: 'following',
       component: () => import('./views/Following.vue')
+    },
+    {
+      path: '/users/:id/followers',
+      name: 'follower',
+      component: () => import('./views/Follower.vue')
     }
   ]
 })
