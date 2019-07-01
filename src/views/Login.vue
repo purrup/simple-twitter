@@ -2,37 +2,53 @@
   main
     .container
       .login-wraper
-        form(action="/login" method='POST')
+        form(@submit.prevent="login")
           h1 Log in to Twitter
           .form-group
             label(for='email')
-            input.form-control(type='email', name='email', placeholder='email', required='')
+            input.form-control(type='email' placeholder='email' v-model="email" required)
           .form-group
             label(for='password')
-            input.form-control(type='text', name='password', placeholder='Password', required='')
+            input.form-control(type='text' placeholder='Password' v-model="password" required)
           button(type="submit") Log in
       .footer
         .signup-helper
           span New to Twitter?
           a(href="/signup") Sign up now »
-
 </template>
 
 <script>
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async login () {
+      try {
+        await this.$store.dispatch('user/login', { email: this.email, password: this.password })
+        this.$router.push('/tweets')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 main {
   width: 100%;
-  background-color: #E6ECF0;
+  background-color: #e6ecf0;
   .container {
     width: 55%;
     height: 35%;
     margin: 10px auto 0 auto;
-    background-color:white;
+    background-color: white;
     display: grid;
     grid-template-columns: 10% auto 10%;
     grid-template-rows: 80% 20%;
@@ -47,7 +63,7 @@ main {
         flex-flow: column wrap;
         align-items: flex-start;
         justify-content: space-evenly;
-        .form-group input  {
+        .form-group input {
           width: 290px;
           height: 20px;
           padding: 4px;
@@ -83,10 +99,10 @@ main {
       grid-template-columns: 10% auto 10%;
       grid-column: 1 / 4;
       grid-row: 2;
-      background-color: #F5F8FA;
+      background-color: #f5f8fa;
       width: 100%;
       height: 100%;
-      .signup-helper{
+      .signup-helper {
         grid-column: 2 / 4;
         justify-self: start;
         align-self: center;
