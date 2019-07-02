@@ -5,18 +5,18 @@ const state = {}
 const getters = {}
 
 const mutations = {
-  SET_USER (state, data) {
+  SET_USERS (state, data) {
     Object.assign(state, data)
   }
 }
 
 const actions = {
-  async getUser (context, id) {
+  async getTopUsers (context) {
     try {
-      const result = await axios(`/users/${id}`, {
+      const result = await axios('/users/top', {
         method: 'get'
       })
-      context.commit('SET_USER', result.data)
+      context.commit('SET_USERS', result.data)
     } catch (error) {
       throw error
     }

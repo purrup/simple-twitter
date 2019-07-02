@@ -3,22 +3,22 @@
     div(class="container")
       div(id="main")
         div(id="send-tweets")
-          textarea(name="text" id="text" cols="30" rows="10" v-model="post")
-          button(@click="postTweet") Tweet
+          textarea(name="text" id="text" cols="30" rows="10" v-model="description")
+          button(@click="postTweet({description})") Tweet
         div(id="tweets")
           template(v-for="tweet in tweets")
-            tweet(:tweet="tweet" :key="tweet.username")
+            tweet(:tweet="tweet" :user="tweet.User" :key="tweet.id")
       div(id="side-bar")
         h3 Popular
-        div(id="users")
-          template(v-for="user in users")
-            user-card(:user="user" :key="user.id")
-
+        div(id="topUsers")
+          template(v-for="user in topUsers")
+            user-card(:user="user" :account="account" :key="user.id")
 </template>
 
 <script>
 import Tweet from '@/components/Tweet.vue'
 import UserCard from '@/components/UserCard.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'home',
@@ -28,111 +28,22 @@ export default {
   },
   data () {
     return {
-      tweets: [
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        },
-        {
-          userId: 2,
-          username: 'ianyshuang',
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet',
-          createdAt: new Date().toISOString(),
-          image: 'https://picsum.photos/100',
-          replyCounts: 5,
-          likeCounts: 8
-        },
-        {
-          userId: 3,
-          username: 'jerry',
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
-          createdAt: new Date().toISOString(),
-          image: 'https://picsum.photos/100',
-          replyCounts: 8,
-          likeCounts: 10
-        },
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
-          createdAt: new Date().toISOString(),
-          image: 'https://picsum.photos/100',
-          replyCounts: 10,
-          likeCounts: 10
-        },
-        {
-          userId: 2,
-          username: 'ianyshuang',
-          text:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi psum dolor sit amet.',
-          createdAt: new Date().toISOString(),
-          image: 'https://picsum.photos/100',
-          replyCounts: 7,
-          likeCounts: 7
-        }
-      ],
-      users: [
-        {
-          id: 1,
-          name: 'miayang0513',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 2,
-          name: 'ianyshuang',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 3,
-          name: 'jerry',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 4,
-          name: 'bdotadot5',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 5,
-          name: 'asdfghjkl',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        }
-      ],
-      post: ''
+      description: ''
     }
   },
+  computed: {
+    ...mapState('tweet', {
+      tweets: state => state.tweets
+    }),
+    ...mapState('account', {
+      account: state => state
+    }),
+    ...mapState('topUsers', {
+      topUsers: state => state
+    })
+  },
   methods: {
-    postTweet () {
-      const newTweet = {
-        userId: 1,
-        username: 'miayang0513',
-        text: this.post,
-        image: 'https://picsum.photos/100',
-        createdAt: new Date().toISOString(),
-        replyCounts: 0,
-        likeCounts: 0
-      }
-      this.tweets.unshift(newTweet)
-    }
+    ...mapActions('tweet', ['postTweet'])
   }
 }
 </script>
@@ -196,7 +107,7 @@ export default {
         color: #01687e;
         text-align: left;
       }
-      #users {
+      #topUsers {
         display: grid;
         grid-auto-rows: 150px;
         grid-auto-flow: row;

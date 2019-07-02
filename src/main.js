@@ -5,6 +5,22 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+router.beforeEach(async (to, from, next) => {
+  if (to.path === '/login') {
+    console.log('success')
+    next()
+    return
+  }
+  try {
+    await store.dispatch('account/getUser')
+    next()
+  } catch (error) {
+    console.log('login')
+    next({ path: '/login' })
+    throw error
+  }
+})
+
 new Vue({
   router,
   store,

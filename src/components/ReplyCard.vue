@@ -1,9 +1,9 @@
 <template lang="pug">
   div(class="replies")
-    img(:src="reply.image")
+    img(:src="reply.User.avatar")
     div
       div
-        router-link(:to="`/users/${reply.userId}/tweets`" tag="span") @{{reply.username}}
+        router-link(:to="`/users/${reply.userId}/tweets`" tag="span") @{{reply.User.name}}
         span , {{reply.createdAt}}
       p {{reply.comment}}
 

@@ -1,25 +1,47 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
+// import store from '@/store'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+  // mode: 'hash',
+  // base: process.env.BASE_URL,
   routes: [
+    {
+      path: '/',
+      beforeEnter (to, from, next) {
+        next({ path: '/tweets' })
+      }
+    },
     {
       path: '/tweets',
       name: 'Home',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ './views/Home.vue')
+      component: () => import('./views/Home.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('tweet/getTweets')
+          await store.dispatch('topUsers/getTopUsers')
+          next()
+        } catch (error) {
+          next({ path: '/login' })
+          throw error
+        }
+      }
     },
     {
       path: '/users/:id/tweets',
       name: 'Profile',
-      component: () => import('./views/Profile.vue')
+      component: () => import('./views/Profile.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('user/getUser', to.params.id)
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
     },
     {
       path: '/users/:id/edit',
@@ -44,7 +66,17 @@ export default new Router({
     {
       path: '/tweets/:id/replies',
       name: 'reply',
-      component: () => import('./views/Reply.vue')
+      component: () => import('./views/Reply.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          console.log('success')
+          const userId = await store.dispatch('tweet/getTweet', to.params.id)
+          await store.dispatch('user/getUser', userId)
+          next()
+        } catch (error) {
+          throw (error)
+        }
+      }
     },
     {
       path: '/users/:id/followings',

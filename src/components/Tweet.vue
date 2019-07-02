@@ -1,21 +1,22 @@
 <template lang="pug">
   div(class="tweets")
-    img(:src="tweet.image")
+    img(:src="user.avatar")
     div
       div
-        router-link(:to="`/users/${tweet.userId}/tweets`" tag="span") @{{tweet.username}}
+        router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
         span , {{tweet.createdAt}}
-      p {{tweet.text}}
+      p {{tweet.description}}
       div
-        span(class="reply") Reply({{tweet.replyCounts}})
-        span(class="like") Like({{tweet.likeCounts}})
+        router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
+        span(class="like") Like({{tweet.LikedUsers.length}})
 </template>
 
 <script>
 export default {
   name: 'tweet',
   props: {
-    tweet: Object
+    tweet: Object,
+    user: Object
   }
 }
 </script>
@@ -43,6 +44,7 @@ export default {
         span {
           color: #4D85C2;
           font-weight: 600;
+          cursor: pointer;
         }
       }
       > p {

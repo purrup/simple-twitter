@@ -2,13 +2,30 @@
   div(id="navbar")
     div(class="container")
       router-link(to="/tweets" tag="h3") Simple Twitter
-      img(src="https://picsum.photos/100" alt="logo")
-      span Logout
+      img(:src="user.avatar" alt="logo")
+      span(@click="logout") Logout
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  computed: {
+    ...mapState('account', {
+      user: state => state
+    })
+  },
+  methods: {
+    async logout () {
+      try {
+        await this.$store.dispatch('account/logout')
+        this.$router.push('/login')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 }
 </script>
 
@@ -26,6 +43,7 @@ export default {
       h3 {
         grid-area: left-logo;
         font-size: 20px;
+        cursor: pointer;
       }
       img {
         grid-area: right-logo;
@@ -36,7 +54,8 @@ export default {
         font-size: 20px;
         font-weight: 600;
         align-self: center;
-        color: #03697F
+        color: #03697F;
+        cursor: pointer;
       }
     }
   }

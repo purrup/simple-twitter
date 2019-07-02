@@ -3,7 +3,7 @@
     img(:src="user.image")
     div
       router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-      p {{user.description}}
+      p {{user.introduction}}
       button Unfollow
 </template>
 
@@ -43,7 +43,6 @@ export default {
         margin: 0;
         font-size: 13px;
         text-align: justify;
-        align-self: flex-end;
       }
       button {
         width: 50%;

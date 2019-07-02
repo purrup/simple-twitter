@@ -30,7 +30,7 @@ export default {
   methods: {
     async login () {
       try {
-        await this.$store.dispatch('user/login', { email: this.email, password: this.password })
+        await this.$store.dispatch('account/login', { email: this.email, password: this.password })
         this.$router.push('/tweets')
       } catch (error) {
         console.log(error)

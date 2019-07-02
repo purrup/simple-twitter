@@ -2,24 +2,45 @@
   div(id="content")
     div(class="container")
       div
-        img(:src="user.image")
+        img(:src="account.avatar")
         button Browse files..
       div
-        input(type="text" placeholder="name" id="name" v-model="user.name")
-        textarea(name="description" id="description" v-model="user.description")
-        button Update
+        input(type="text" placeholder="name" id="name" v-model="name")
+        textarea(name="introduction" id="introduction" v-model="introduction")
+        button(@click="checkBeforeUpdate") Update
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
-      user: {
-        id: 1,
-        name: 'miayang0513',
-        image: 'https://picsum.photos/100',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.'
+      name: '',
+      introduction: ''
+    }
+  },
+  beforeMount () {
+    this.name = this.account.name
+    this.introduction = this.account.introduction
+  },
+  computed: {
+    ...mapState('account', {
+      account: state => state
+    })
+  },
+  methods: {
+    ...mapActions('account', ['putUser']),
+    checkBeforeUpdate () {
+      if (this.name === '' || this.introduction === '') {
+        alert('請填入資料！')
+        return
       }
+      this.putUser({
+        name: this.name,
+        introduction: this.introduction
+      })
+      this.$router.go(-1)
     }
   }
 }

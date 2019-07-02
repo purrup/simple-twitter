@@ -1,47 +1,34 @@
 <template lang="pug">
-  div(id="content")
-    div(class="container")
-      user-side-bar(:user="user")
-      div(id="user-tweets")
-        template(v-for="tweet in tweets")
-          tweet(:tweet="tweet" :user="user")
-
+  div(id="user-profile")
+    div
+      img(:src="user.avatar")
+      h3 {{user.name}}
+      p {{user.introduction}}
+    div
+      p Tweets {{user.Tweets.length}}
+      p Followings {{user.Followings.length}}
+      p Followers {{user.Followers.length}}
+      p like {{user.LikedTweets.length}}
+    router-link(v-if="user.id === account.id" :to="`/users/${user.id}/edit`" tag="button") Edit Profile
+    span(v-else) Follow/Unfollow
 </template>
 
 <script>
-import Tweet from '@/components/Tweet.vue'
-import UserSideBar from '@/components/UserSideBar.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Profile',
-  components: {
-    Tweet,
-    UserSideBar
+  props: {
+    user: Object
   },
   computed: {
-    ...mapState('user', {
-      user: state => state
-    }),
-    tweets () {
-      return this.user.Tweets.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    },
-    likes () {
-      return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
-    }
+    ...mapState('account', {
+      account: state => state
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-#content {
-  height: 100%;
-  .container {
-    width: 75%;
-    display: grid;
-    grid-template-columns: 150px 690px;
-    grid-column-gap: 90px;
-  }
   #user-profile {
     display: grid;
     grid-template-rows: 300px 130px 50px;
@@ -58,12 +45,12 @@ export default {
       > h3 {
         margin: 0;
         font-size: 22px;
-        color: #3d8293;
+        color:#3D8293;
       }
       > p {
         margin: 0;
         line-height: 1;
-        color: #719ece;
+        color: #719ECE;
         font-weight: 500;
         text-align: left;
       }
@@ -75,7 +62,7 @@ export default {
       grid-row-gap: 10px;
       justify-items: flex-start;
       > p {
-        color: #4c4c4c;
+        color: #4C4C4C;
         font-weight: 500;
         font-size: 18px;
         margin: 0;
@@ -91,12 +78,4 @@ export default {
       border-radius: 8px;
     }
   }
-  #user-tweets {
-    height: 650px;
-    display: grid;
-    grid-auto-rows: 150px;
-    grid-row-gap: 30px;
-    overflow-y: scroll;
-  }
-}
 </style>
