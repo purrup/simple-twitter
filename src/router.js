@@ -32,6 +32,11 @@ export default new Router({
       component: () => import('./views/Logout.vue')
     },
     {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('./views/Signup.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('./views/Login.vue')
@@ -40,6 +45,21 @@ export default new Router({
       path: '/tweets/:id/replies',
       name: 'reply',
       component: () => import('./views/Reply.vue')
+    },
+    {
+      path: '/users/:id/followings',
+      name: 'following',
+      component: () => import('./views/Following.vue')
+    },
+    {
+      path: '/users/:id/followers',
+      name: 'follower',
+      component: () => import('./views/Follower.vue')
+    },
+    {
+      path: '/users/:id/likes',
+      name: 'like',
+      component: () => import('./views/Like.vue')
     }
   ]
 })

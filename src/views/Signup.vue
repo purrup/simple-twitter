@@ -1,59 +1,46 @@
 <template lang="pug">
   main
     .container
-      .login-wraper
-        form(@submit.prevent="login")
-          h1 Log in to Twitter
+      .signup-wraper
+        form(action="/signup" method='POST')
+          h1 Sign Up to Twitter
+          .form-group
+            label(for='name')
+            input.form-control(type='name', name='name', placeholder='name', required='')
           .form-group
             label(for='email')
-            input.form-control(type='email' placeholder='email' v-model="email" required)
+            input.form-control(type='email', name='email', placeholder='email', required='')
           .form-group
             label(for='password')
-            input.form-control(type='text' placeholder='Password' v-model="password" required)
-          button(type="submit") Log in
+            input.form-control(type='text', name='password', placeholder='Password', required='')
+          button(type="submit") Sign Up
       .footer
         .signup-helper
-          span New to Twitter?
-          a(href="/signup") Sign up now »
+          span Already have an account?
+          a(href="/login") Log in now »
+
 </template>
 
 <script>
-
 export default {
-  name: 'Login',
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    async login () {
-      try {
-        await this.$store.dispatch('user/login', { email: this.email, password: this.password })
-        this.$router.push('/tweets')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+  name: 'Signup'
 }
 </script>
 
 <style lang="scss" scoped>
 main {
   width: 100%;
-  background-color: #e6ecf0;
+  background-color: #E6ECF0;
   .container {
     width: 55%;
-    height: 35%;
+    height: 45%;
     margin: 10px auto 0 auto;
-    background-color: white;
+    background-color:white;
     display: grid;
     grid-template-columns: 10% auto 10%;
     grid-template-rows: 80% 20%;
 
-    .login-wraper {
+    .signup-wraper {
       grid-column: 2 / 3;
       grid-row: 1;
       form {
@@ -63,7 +50,7 @@ main {
         flex-flow: column wrap;
         align-items: flex-start;
         justify-content: space-evenly;
-        .form-group input {
+        .form-group input  {
           width: 290px;
           height: 20px;
           padding: 4px;
@@ -100,10 +87,10 @@ main {
       grid-template-columns: 10% auto 10%;
       grid-column: 1 / 4;
       grid-row: 2;
-      background-color: #f5f8fa;
+      background-color: #F5F8FA;
       width: 100%;
       height: 100%;
-      .signup-helper {
+      .signup-helper{
         grid-column: 2 / 4;
         justify-self: start;
         align-self: center;

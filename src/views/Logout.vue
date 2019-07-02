@@ -101,17 +101,19 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
     grid-column: 2;
     grid-row: 1 / span 2;
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 70%;
     grid-template-rows: 120px auto;
     .login-form {
+      width: 100%;
       grid-column: 2;
       grid-row: 1;
       justify-self: start;
       align-self: center;
       form {
         height: 100%;
-        display: flex;
-        flex-flow: row nowrap;
+        display: grid;
+        grid-column-gap: 15px;
+        grid-template-columns: 44% 44% 12%;
         .form-group input  {
           width: 90%;
           padding: 12px;
@@ -142,7 +144,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
     .singup-area {
       grid-column: 2;
       grid-row: 2;
-      width: 45%;
+      width: 60%;
       justify-self: start;
       align-self: center;
       font-weight: bold;
@@ -150,8 +152,8 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
       .singup-title {
         display: flex;
         flex-flow: row wrap;
-        h2 {
-          justify-self: flex-start;
+        h1 {
+          text-align: left;
         }
         i {
           color: #1da1f2;
