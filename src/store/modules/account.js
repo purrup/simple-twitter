@@ -2,7 +2,19 @@ import axios from '../axios.js'
 import Vue from 'vue'
 
 const state = {
-  isLogin: false
+  isLogin: false,
+  id: 2,
+  email: '',
+  name: '',
+  avatar: '',
+  introduction: '',
+  role: null,
+  createdAt: '',
+  updatedAt: '',
+  Tweets: [],
+  Followers: [],
+  Followings: [],
+  LikedTweets: []
 }
 
 const getters = {
@@ -30,12 +42,17 @@ const mutations = {
   },
   ADD_FOLLOWING (state, data) {
     state.Followings.push({ id: data.UserId })
-    console.log(state.Followings)
   },
   REMOVE_FOLLOWING (state, data) {
     const index = state.Followings.findIndex(item => item.id === data.UserId)
     state.Followings.splice(index, 1)
-    console.log(state.Followings)
+  },
+  ADD_ACCOUNT_LIKE (state, data) {
+    state.LikedTweets.push(data)
+  },
+  REMOVE_ACCOUNT_LIKE (state, data) {
+    const index = state.LikedTweets.findIndex(item => item.id === data.tweetId)
+    state.LikedTweets.splice(index, 1)
   }
 }
 const actions = {
