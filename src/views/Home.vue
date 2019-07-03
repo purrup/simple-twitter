@@ -7,7 +7,7 @@
           button(@click="postTweet({description})") Tweet
         div(id="tweets")
           template(v-for="tweet in tweets")
-            tweet(:tweet="tweet" :user="tweet.User" :key="tweet.id")
+            tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweet.id")
       div(id="side-bar")
         h3 Popular
         div(id="topUsers")

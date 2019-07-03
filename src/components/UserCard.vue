@@ -1,17 +1,46 @@
 <template lang="pug">
   div(class="user")
-    img(:src="user.image")
+    img(:src="user.avatar")
     div
       router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-      p {{user.introduction}}
-      button Unfollow
+      p {{user.introduction.substring(0, 50)}}
+      button(v-if="isFollowing" @click="deleteFollowing(user.id)") Unfollow
+      button(v-else-if="account.id !== user.id" @click="postFollowing(user.id)") Follow
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'UserCard',
   props: {
-    user: Object
+    user: Object,
+    account: Object
+  },
+  data () {
+    return {
+      followings: []
+    }
+  },
+  beforeMount () {
+    this.followings = this.account.Followings.slice()
+  },
+  computed: {
+    isFollowing () {
+      return this.followings.some(item => item.id === this.user.id)
+    }
+  },
+  methods: {
+    ...mapActions('account', ['addFollowing', 'removeFollowing']),
+    postFollowing (UserId) {
+      this.followings.push({ id: UserId })
+      this.addFollowing({ UserId })
+    },
+    deleteFollowing (UserId) {
+      const index = this.followings.findIndex(item => item.id === UserId)
+      this.followings.splice(index, 1)
+      this.removeFollowing({ UserId })
+    }
   }
 }
 </script>

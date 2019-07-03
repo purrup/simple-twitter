@@ -3,7 +3,7 @@
     div
       img(:src="user.avatar")
       h3 {{user.name}}
-      p {{user.introduction}}
+      p {{user.introduction.substring(0, 50)}}
     div
       p Tweets {{user.Tweets.length}}
       p Followings {{user.Followings.length}}

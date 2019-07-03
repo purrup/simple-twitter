@@ -30,7 +30,7 @@ body {
   color: #2c3e50;
   height: 100%;
   display: grid;
-  grid-template-rows: 70px auto;
+  grid-template-rows: 60px auto;
   grid-row-gap: 30px;
 }
 .container {

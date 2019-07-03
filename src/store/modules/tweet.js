@@ -100,6 +100,15 @@ const mutations = {
       ...data.reply,
       User: { ...data.account }
     })
+  },
+  ADD_LIKE (state, data) {
+    const tweet = state.tweets.find(item => item.id === data.tweetId)
+    tweet.LikedUsers.push({ id: data.accountId })
+  },
+  REMOVE_LIKE (state, data) {
+    const tweet = state.tweets.find(item => item.id === data.tweetId)
+    const index = tweet.LikedUsers.findIndex(item => item.id === data.accountId)
+    tweet.LikedUsers.splice(index, 1)
   }
 }
 const actions = {
@@ -140,7 +149,30 @@ const actions = {
         method: 'post',
         data: JSON.stringify({ comment: params.comment })
       })
-      context.commit('PUSH_REPLY', { reply: result.data, account: params.account })
+      context.commit('PUSH_REPLY', {
+        reply: result.data,
+        account: params.account
+      })
+    } catch (error) {
+      throw error
+    }
+  },
+  async addLike (context, params) {
+    try {
+      context.commit('ADD_LIKE', params)
+      await axios(`/tweets/${params.tweetId}/like`, {
+        method: 'post'
+      })
+    } catch (error) {
+      throw error
+    }
+  },
+  async removeLike (context, params) {
+    try {
+      context.commit('REMOVE_LIKE', params)
+      await axios(`/tweets/${params.tweetId}/unlike`, {
+        method: 'post'
+      })
     } catch (error) {
       throw error
     }

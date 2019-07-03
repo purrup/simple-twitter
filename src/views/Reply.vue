@@ -5,7 +5,7 @@
       main
         div(id="user-tweets")
           h3  Tweets
-          tweet(:tweet="tweet" :user="tweet.User")
+          tweet(:tweet="tweet" :user="tweet.User" :account="account")
         div(id="replies")
           h3  Replies
           template(v-for="reply in tweet.Replies")

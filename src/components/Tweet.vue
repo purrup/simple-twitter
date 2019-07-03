@@ -5,18 +5,52 @@
       div
         router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
         span , {{tweet.createdAt}}
-      p {{tweet.description}}
+      p {{tweet.description.substring(0, 50)}}
       div
         router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
-        span(class="like") Like({{tweet.LikedUsers.length}})
+        span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{likedUsers.length}})
+        span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{likedUsers.length}})
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'tweet',
   props: {
     tweet: Object,
-    user: Object
+    user: Object,
+    account: Object
+  },
+  data () {
+    return {
+      likedTweets: [],
+      likedUsers: []
+    }
+  },
+  beforeMount () {
+    this.likedTweets = this.account.LikedTweets.slice()
+    this.likedUsers = this.tweet.LikedUsers
+  },
+  computed: {
+    isLiked () {
+      return this.likedTweets.some(item => item.id === this.tweet.id)
+    }
+  },
+  methods: {
+    ...mapActions('tweet', ['addLike', 'removeLike']),
+    postLike (accountId, tweetId) {
+      this.likedUsers.push({ id: accountId })
+      this.likedTweets.push({ id: tweetId })
+      this.addLike({ accountId, tweetId })
+    },
+    deleteLike (accountId, tweetId) {
+      const tweetIndex = this.likedTweets.findIndex(item => item.id === tweetId)
+      this.likedTweets.splice(tweetIndex, 1)
+      const userIndex = this.likedUsers.findIndex(item => item.id === accountId)
+      this.likedUsers.splice(userIndex, 1)
+      this.removeLike({ accountId, tweetId })
+    }
   }
 }
 </script>
