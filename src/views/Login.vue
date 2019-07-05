@@ -14,7 +14,7 @@
       .footer
         .signup-helper
           span New to Twitter?
-          a(href="/signup") Sign up now »
+          router-link(:to="`/signup`") Sign up now »
 </template>
 
 <script>

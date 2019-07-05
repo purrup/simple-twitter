@@ -6,7 +6,7 @@ import store from './store'
 Vue.config.productionTip = false
 
 router.beforeEach(async (to, from, next) => {
-  if (to.path === '/login') {
+  if (to.path === '/logout') {
     console.log('success')
     next()
     return
@@ -15,8 +15,8 @@ router.beforeEach(async (to, from, next) => {
     await store.dispatch('account/getUser')
     next()
   } catch (error) {
-    console.log('login')
-    next({ path: '/login' })
+    console.log('logout')
+    next({ path: '/logout' })
     throw error
   }
 })

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="navbar")
+  div(id="navbar" v-if="$route.path !== '/logout'")
     div(class="container")
       router-link(to="/tweets" tag="h3") Simple Twitter
       template(v-if="account.isLogin")

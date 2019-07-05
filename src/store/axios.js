@@ -3,7 +3,7 @@ import Axios from 'axios'
 // import store from '../store/index'
 
 const options = {
-  baseURL: 'http://42dbeb28.ngrok.io',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'text/plain'
   },

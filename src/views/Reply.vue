@@ -6,13 +6,14 @@
         div(id="user-tweets")
           h3  Tweets
           tweet(:tweet="tweet" :user="tweet.User" :account="account")
-        div(id="replies")
+        div
           h3  Replies
-          template(v-for="reply in tweet.Replies")
-            reply-card(:reply="reply" :key="reply.id")
-        div(id="reply-input")
-          textarea(name="text" id="text" cols="30" rows="10" v-model="replyContent")
-          button(@click="checkBeforePost(tweet.id)") Reply
+          div(id="replies")
+            template(v-for="reply in tweet.Replies")
+              reply-card(:reply="reply" :key="reply.id")
+          div(id="reply-input")
+            textarea(name="text" id="text" cols="30" rows="10" v-model="replyContent")
+            button(@click="checkBeforePost(tweet.id)") Reply
 </template>
 
 <script>
@@ -131,6 +132,10 @@ export default {
     display: grid;
     grid-template-rows: 200px auto 300px 200px;
     grid-row-gap: 20px;
+    h3 {
+      padding-bottom: 15px;
+      text-align: left;
+    }
     #user-tweets {
       grid-row: 1;
       display: grid;
@@ -139,23 +144,23 @@ export default {
     }
     #replies {
       grid-row: 2;
-      height: 400px;
       display: grid;
-      grid-template-rows: 27px auto;
+      height: 350px;
+      grid-template-rows: auto;
       grid-row-gap: 10px;
       overflow-y: scroll;
     }
     #reply-input {
+      padding-top: 30px;
       grid-row: 3;
       display: grid;
       grid-auto-rows: 50px;
       grid-auto-flow: row;
       grid-row-gap: 30px;
       textarea {
-        padding: 0;
         border: 2px solid #1da1f2;
-        border-radius: 4px;
-        width: 99%;
+        border-radius: 10px;
+        width: 49%;
         height: 100%;
         resize: none;
         outline: none;

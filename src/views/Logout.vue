@@ -15,18 +15,32 @@
             input.form-control(type='email', name='email', placeholder='email', required='')
           .form-group
             label(for='password')
-            input.form-control(type='text', name='password', placeholder='Password', required='')
+            input.form-control(type='password', name='password', placeholder='Password', required='')
           button(type="submit") Log in
-      .singup-area
-        .singup-title
+      .signup-area(v-show="show")
+        .signup-title
           i.fab.fa-twitter.twitter-icon
           h1 See what’s happening in the world right now
-        .singup-button
+        .signup-button
           h3 Join Twitter today.
-          a(href="/signup")
-            button Sign Up
-          a(href="/login")
-            button Log in
+          button(@click="show = !show") Sign Up
+      transition(name="fade" mode="out-in")
+        div.signup-area(v-show="!show")
+          .signup-wraper
+            .signup-title
+              i.fab.fa-twitter.twitter-icon
+              h1 Sign Up to Twitter
+            form(action="/signup" method='POST')
+              .form-group
+                label(for='name')
+                input.form-control(type='name', name='name', placeholder='name', required='')
+              .form-group
+                label(for='email')
+                input.form-control(type='email', name='email', placeholder='email', required='')
+              .form-group
+                label(for='password')
+                input.form-control(type='password', name='password', placeholder='Password', required='')
+              button(type="submit") Sign Up
 
     .footer
       .description
@@ -37,7 +51,12 @@
 
 <script>
 export default {
-  name: 'Logout'
+  name: 'Logout',
+  data () {
+    return {
+      show: true
+    } 
+  }
 }
 </script>
 
@@ -80,7 +99,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
       }
     }
     .background-img {
-      -webkit-clip-path:polygon(0% 100px, 0% 100%,50% 100%,50% 100px);
+      -webkit-clip-path:polygon(0% 0%, 0% 100%,50% 100%,50% 0%);
       position: absolute;
       left: 0;
       top: 0;
@@ -141,15 +160,32 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
         }
       }
     }
-    .singup-area {
+    .signup-area {
       grid-column: 2;
       grid-row: 2;
+      height: 30%;
       width: 60%;
       justify-self: start;
       align-self: center;
       font-weight: bold;
-
-      .singup-title {
+      button {
+        &:hover {
+          background-color: #006dbf;
+          border-color: #006dbf;
+        }
+        width: 100%;
+        border-radius: 100px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 20px;
+        padding: 8px 16px;
+        background-color: #1da1f2;
+        border: 1px solid #1da1f2;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      .signup-title {
         display: flex;
         flex-flow: row wrap;
         h1 {
@@ -158,56 +194,46 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
         i {
           color: #1da1f2;
           font-size: 2.5em;
+          max-height: 40px;
+          width: 100%;
+          text-align: left;
         }
       }
-      .singup-button {
+      .signup-button {
         width: 100%;
         display: flex;
         flex-flow: row wrap;
-        a {
-          width: 100%;
-          text-decoration: none;
-        }
-        button {
-          width: 100%;
-          border-radius: 100px;
-          cursor: pointer;
-          font-size: 14px;
-          font-weight: bold;
-          line-height: 20px;
-          padding: 8px 16px;
-          background-color: #1da1f2;
-          border: 1px solid #1da1f2;
-          color: #fff;
-          margin-bottom: 20px;
-        }
-        :nth-child(2) {
-          button {
-            &:hover {
-              background-color: #006dbf;
-              border-color: #006dbf;
-            }
-          }
-        }
-        :nth-child(3) {
-          button {
-            &:hover {
-              background-color: #eaf5fd;
-              color: #1da1f2;
-              transition: background 0.2s linear;
-            }
-            background-color: white;
-            cursor: pointer;
-            border-radius: 100px;
-            -moz-border-radius: 100px;
-            -webkit-border-radius: 100px;
+      }
+      .signup-wraper {
+        height: 100%;
+        grid-column: 2;
+        grid-row: 2;
+          form {
             width: 100%;
-            border: 1px solid #1da1f2;
-            color: #1da1f2;
+            height: 100%;
+            display: grid;
+            grid-auto-rows: 60px;
+            grid-row-gap: 5px;
+            .form-group input  {
+              width: 93%;
+              padding: 12px;
+              font-size: 1em;
+              border-radius: 3px 3px 3px 3px;
+              -moz-border-radius: 3px 3px 3px 3px;
+              -webkit-border-radius: 3px 3px 3px 3px;
+              border: 1px solid #e6ecf0;
+              font-weight: 300;
+            }
           }
         }
       }
-    }
+  }
+    // signup transtion
+  .fade-enter-active {
+    transition: all 1s ease;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
   }
   .footer {
     grid-column: 1 / span 2;

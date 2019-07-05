@@ -27,7 +27,7 @@ export default {
     display: grid;
     grid-template-columns: 100px 1fr;
     grid-column-gap: 20px;
-
+    max-height: 120px;
     > img {
       width: 100%;
       align-self: center;
