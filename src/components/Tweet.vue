@@ -30,21 +30,34 @@ export default {
   methods: {
     ...mapMutations('account', ['ADD_ACCOUNT_LIKE', 'REMOVE_ACCOUNT_LIKE']),
     ...mapMutations('tweet', ['ADD_TWEET_LIKE', 'REMOVE_TWEET_LIKE', 'ADD_TWEETS_LIKE', 'REMOVE_TWEETS_LIKE']),
+    ...mapMutations('user', ['ADD_USER_TWEET_LIKE', 'REMOVE_USER_TWEET_LIKE']),
     ...mapActions('tweet', ['addLike', 'removeLike']),
     postLike (accountId, tweetId) {
       if (this.$route.path === '/tweets') {
+        console.log('add like in homepage')
         this.ADD_TWEETS_LIKE({ accountId, tweetId })
+      } else if (this.$route.path.includes('users')) {
+        console.log('add like in profile')
+        this.ADD_USER_TWEET_LIKE({ accountId, tweetId })
+      } else {
+        console.log('add like in reply')
+        this.ADD_TWEET_LIKE({ accountId })
       }
       this.ADD_ACCOUNT_LIKE({ id: tweetId })
-      this.ADD_TWEET_LIKE({ accountId, tweetId })
       this.addLike({ accountId, tweetId })
     },
     deleteLike (accountId, tweetId) {
       if (this.$route.path === '/tweets') {
+        console.log('remove like in homepage')
         this.REMOVE_TWEETS_LIKE({ accountId, tweetId })
+      } else if (this.$route.path.includes('users')) {
+        console.log('remove like in profile')
+        this.REMOVE_USER_TWEET_LIKE({ accountId, tweetId })
+      } else {
+        console.log('remove like in reply')
+        this.REMOVE_TWEET_LIKE({ accountId })
       }
       this.REMOVE_ACCOUNT_LIKE({ tweetId })
-      this.REMOVE_TWEET_LIKE({ accountId, tweetId })
       this.removeLike({ accountId, tweetId })
     }
   }

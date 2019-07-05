@@ -37,10 +37,7 @@ export default {
     }),
     ...mapState('account', {
       account: state => state
-    }),
-    likes () {
-      return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
-    }
+    })
   },
   data () {
     return {

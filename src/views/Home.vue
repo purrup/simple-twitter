@@ -48,6 +48,9 @@ export default {
       if (this.description === '') {
         alert('請填入資訊！')
         return
+      } else if (this.description.length > 140) {
+        alert('長度必須小於140字！')
+        return
       }
       this.postTweet({ description: this.description })
       this.description = ''

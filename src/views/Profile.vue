@@ -4,7 +4,7 @@
       user-side-bar(:user="user")
       div(id="user-tweets")
         template(v-for="tweet in tweets")
-          tweet(:tweet="tweet" :user="user")
+          tweet(:tweet="tweet" :user="user" :account="account")
 
 </template>
 
@@ -23,11 +23,11 @@ export default {
     ...mapState('user', {
       user: state => state
     }),
+    ...mapState('account', {
+      account: state => state
+    }),
     tweets () {
       return this.user.Tweets.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    },
-    likes () {
-      return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
     }
   }
 }
