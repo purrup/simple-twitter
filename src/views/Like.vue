@@ -5,8 +5,8 @@
       main
         h3 Like
         div(id="user-tweets")
-          template(v-for="tweet in tweets")
-            tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweets.id")
+          template(v-for="likedTweet in likedTweets")
+            tweet(:tweet="likedTweet" :user="likedTweet.User" :account="account" :key="likedTweet.id")
 
 </template>
 
@@ -32,8 +32,22 @@ export default {
     ...mapState('account', {
       account: state => state
     }),
-    tweets () {
-      return this.user.LikedTweets
+    ...mapState('tweet', {
+      tweets: state => state.tweets
+    }),
+    likedTweets () {
+      const likedTweetId = this.user.LikedTweets.map(likedTweet => likedTweet.id)
+      const likedTweets = []
+      this.tweets.forEach(tweet => {
+        if (likedTweetId.includes(tweet.id)) {
+          const likedTweet = this.user.LikedTweets.find(item => item.id === tweet.id)
+          likedTweet.Replies = tweet.Replies
+          likedTweet.LikedUsers = tweet.LikedUsers
+          likedTweets.push(likedTweet)
+        }
+      })
+      console.log(likedTweets)
+      return likedTweets
     }
   }
 }

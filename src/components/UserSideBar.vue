@@ -11,11 +11,12 @@
       router-link(:to="`/users/${currentUser.id}/followers`" tag="p") Followers {{currentUser.Followers.length}}
       router-link(:to="`/users/${currentUser.id}/likes`" tag="p") like {{currentUser.LikedTweets.length}}
     router-link(v-if="user.id === account.id" :to="`/users/${account.id}/edit`" tag="button") Edit Profile
-    span(v-else) Follow/Unfollow
+    button(v-else-if="isFollowing" @click="removeFollowing({ UserId: currentUser.id})") Unfollow
+    button(v-else @click="addFollowing({ UserId: currentUser.id})") Follow
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -29,10 +30,16 @@ export default {
   computed: {
     ...mapState('account', {
       account: state => state
-    })
+    }),
+    isFollowing () {
+      return this.account.Followings.some(item => item.id === this.currentUser.id)
+    }
   },
   beforeMount () {
     this.currentUser = this.user.id === this.account.id ? this.account : this.user
+  },
+  methods: {
+    ...mapActions('account', ['addFollowing', 'removeFollowing'])
   }
 
 }

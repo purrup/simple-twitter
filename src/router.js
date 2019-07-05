@@ -71,17 +71,42 @@ export default new Router({
     {
       path: '/users/:id/followings',
       name: 'following',
-      component: () => import('./views/Following.vue')
+      component: () => import('./views/Following.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('user/getUser', to.params.id)
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
     },
     {
       path: '/users/:id/followers',
       name: 'follower',
-      component: () => import('./views/Follower.vue')
+      component: () => import('./views/Follower.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('user/getUser', to.params.id)
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
     },
     {
       path: '/users/:id/likes',
       name: 'like',
-      component: () => import('./views/Like.vue')
+      component: () => import('./views/Like.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('tweet/getTweets')
+          await store.dispatch('user/getUser', to.params.id)
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
     },
     {
       path: '/admin/tweets',

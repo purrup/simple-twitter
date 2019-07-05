@@ -1,6 +1,6 @@
 <template lang="pug">
   div(id="app")
-    navbar
+    navbar(v-if="$route.path !== '/logout'")
     router-view
 </template>
 

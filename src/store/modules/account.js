@@ -49,10 +49,12 @@ const mutations = {
   },
   ADD_ACCOUNT_LIKE (state, data) {
     state.LikedTweets.push(data)
+    console.log('add like to account')
   },
   REMOVE_ACCOUNT_LIKE (state, data) {
     const index = state.LikedTweets.findIndex(item => item.id === data.tweetId)
     state.LikedTweets.splice(index, 1)
+    console.log('remove like from account')
   }
 }
 const actions = {

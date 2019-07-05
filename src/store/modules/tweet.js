@@ -89,7 +89,7 @@ const mutations = {
   },
   SET_TWEET (state, data) {
     data.Replies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    state.tweet = data
+    Object.assign(state.tweet, data)
   },
   PUSH_TWEET (state, data) {
     state.tweets.unshift(data)
