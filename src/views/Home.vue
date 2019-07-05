@@ -4,7 +4,7 @@
       div(id="main")
         div(id="send-tweets")
           textarea(name="text" id="text" cols="30" rows="10" v-model="description")
-          button(@click="postTweet({description})") Tweet
+          button(@click="checkBeforePost") Tweet
         div(id="tweets")
           template(v-for="tweet in tweets")
             tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweet.id")
@@ -43,7 +43,15 @@ export default {
     })
   },
   methods: {
-    ...mapActions('tweet', ['postTweet'])
+    ...mapActions('tweet', ['postTweet']),
+    checkBeforePost () {
+      if (this.description === '') {
+        alert('請填入資訊！')
+        return
+      }
+      this.postTweet({ description: this.description })
+      this.description = ''
+    }
   }
 }
 </script>

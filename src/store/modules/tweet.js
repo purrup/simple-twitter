@@ -101,11 +101,20 @@ const mutations = {
       User: { ...data.account }
     })
   },
-  ADD_LIKE (state, data) {
+  ADD_TWEET_LIKE (state, data) {
+    state.tweet.LikedUsers.push({ id: data.accountId })
+  },
+  REMOVE_TWEET_LIKE (state, data) {
+    const index = state.tweet.LikedUsers.findIndex(
+      item => item.id === data.accountId
+    )
+    state.tweet.LikedUsers.splice(index, 1)
+  },
+  ADD_TWEETS_LIKE (state, data) {
     const tweet = state.tweets.find(item => item.id === data.tweetId)
     tweet.LikedUsers.push({ id: data.accountId })
   },
-  REMOVE_LIKE (state, data) {
+  REMOVE_TWEETS_LIKE (state, data) {
     const tweet = state.tweets.find(item => item.id === data.tweetId)
     const index = tweet.LikedUsers.findIndex(item => item.id === data.accountId)
     tweet.LikedUsers.splice(index, 1)
@@ -159,7 +168,6 @@ const actions = {
   },
   async addLike (context, params) {
     try {
-      context.commit('ADD_LIKE', params)
       await axios(`/tweets/${params.tweetId}/like`, {
         method: 'post'
       })
@@ -169,7 +177,6 @@ const actions = {
   },
   async removeLike (context, params) {
     try {
-      context.commit('REMOVE_LIKE', params)
       await axios(`/tweets/${params.tweetId}/unlike`, {
         method: 'post'
       })

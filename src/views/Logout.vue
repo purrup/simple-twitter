@@ -12,10 +12,10 @@
         form(action="/login" method='POST')
           .form-group
             label(for='email')
-            input.form-control(type='email', name='email', placeholder='email', required='')
+            input.form-control(type='email', name='email', placeholder='email', required)
           .form-group
             label(for='password')
-            input.form-control(type='password', name='password', placeholder='Password', required='')
+            input.form-control(type='password', name='password', placeholder='Password', required)
           button(type="submit") Log in
       .signup-area(v-show="show")
         .signup-title

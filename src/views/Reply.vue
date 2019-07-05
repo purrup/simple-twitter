@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     ...mapActions('tweet', ['postReply']),
-    async checkBeforePost (tweetId) {
+    checkBeforePost (tweetId) {
       if (this.replyContent === '') {
         alert('請填入資訊！')
         return
