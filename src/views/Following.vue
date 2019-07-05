@@ -1,99 +1,44 @@
 <template lang="pug">
   div(id="content")
     div(class="container")
-      div(id="user-profile")
-        div
-          img(:src="user.image")
-          h3 {{user.name}}
-          p {{user.description}}
-        div
-          p Tweets {{tweets.length}}
-          p Followings {{user.followings}}
-          p Followers {{user.followers}}
-          p like {{likes}}
-        router-link(:to="`/users/${user.id}/edit`" tag="button") Edit Profile
+      user-side-bar#user-profile(:user="user")
       main
         h3  Following
         div(id="followings")
           template(v-for="following in followings")
-            user-card(:user="following")
+            user-card(:user="following" :account="account")
 
 </template>
 
 <script>
 import Tweet from '@/components/Tweet.vue'
 import UserCard from '@/components/UserCard.vue'
+import UserSideBar from '@/components/UserSideBar.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'profile',
   components: {
     Tweet,
+    UserSideBar,
     UserCard
   },
-  data () {
-    return {
-      user: {
-        id: 1,
-        name: 'miayang0513',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-        image: 'https://picsum.photos/100',
-        followings: 10,
-        followers: 20
-      },
-      tweets: [
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        }
-      ],
-      followings: [
-        {
-          id: 1,
-          name: 'miayang0513',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 2,
-          name: 'ianyshuang',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 3,
-          name: 'jerry',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 4,
-          name: 'bdotadot5',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        },
-        {
-          id: 5,
-          name: 'asdfghjkl',
-          description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-          image: 'https://picsum.photos/100'
-        }
-      ]
+  // data () {
+  //   return {
+  //   }
+  // },
+  computed: {
+    ...mapState('user', {
+      user: state => state
+    }),
+    ...mapState('account', {
+      account: state => state
+    }),
+    followings () {
+      return this.user.Followings
     }
   },
-  computed: {
-    likes () {
-      return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
-    }
+  methods: {
   }
 }
 </script>
@@ -169,6 +114,8 @@ export default {
       height: 70%;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-auto-rows: 150px;
+      grid-auto-flow: row;
       grid-column-gap: 20px;
       grid-row-gap: 15px;
       overflow-y: scroll;

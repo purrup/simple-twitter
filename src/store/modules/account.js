@@ -56,6 +56,18 @@ const mutations = {
   }
 }
 const actions = {
+  async signup (context, params) {
+    try {
+      const result = await axios('/register', {
+        method: 'post',
+        data: JSON.stringify(params)
+      })
+      context.commit('SET_ACCOUNT', result.data)
+      return true
+    } catch (error) {
+      throw error
+    }
+  },
   async login (context, params) {
     try {
       const result = await axios('/login', {

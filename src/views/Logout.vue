@@ -9,13 +9,13 @@
         i.fas.fa-comment.fa-3x  Join the conversation.
     .right-side
       .login-form
-        form(action="/login" method='POST')
+        form(@submit.prevent="login")
           .form-group
             label(for='email')
-            input.form-control(type='email', name='email', placeholder='email', required)
+            input.form-control(type='email', placeholder='email', v-model="email", required)
           .form-group
             label(for='password')
-            input.form-control(type='password', name='password', placeholder='Password', required)
+            input.form-control(type='password', placeholder='Password', v-model="password", required)
           button(type="submit") Log in
       .signup-area(v-show="show")
         .signup-title
@@ -30,16 +30,16 @@
             .signup-title
               i.fab.fa-twitter.twitter-icon
               h1 Sign Up to Twitter
-            form(action="/signup" method='POST')
+            form(@submit.prevent="signup")
               .form-group
                 label(for='name')
-                input.form-control(type='name', name='name', placeholder='name', required='')
+                input.form-control(type='name', name='name', placeholder='name', v-model="name", required='')
               .form-group
                 label(for='email')
-                input.form-control(type='email', name='email', placeholder='email', required='')
+                input.form-control(type='email', name='email', placeholder='email', v-model="email", required='')
               .form-group
                 label(for='password')
-                input.form-control(type='password', name='password', placeholder='Password', required='')
+                input.form-control(type='password', name='password',v-model="password", placeholder='Password', required='')
               button(type="submit") Sign Up
 
     .footer
@@ -54,8 +54,30 @@ export default {
   name: 'Logout',
   data () {
     return {
-      show: true
-    } 
+      show: true,
+      name: '',
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    async login () {
+      try {
+        await this.$store.dispatch('account/login', { email: this.email, password: this.password })
+        this.$router.push('/tweets')
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async signup () {
+      try {
+        await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
+        this.$router.push('/logout')
+        alert('Sign up successfully! Please log in now.')
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
 </script>
@@ -64,6 +86,7 @@ export default {
 $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_logo_2012.svg");
 
 .container#logout {
+  grid-row: 1 / span 2;
   display: grid;
   height: 100%;
   width: 100%;

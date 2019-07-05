@@ -1,9 +1,10 @@
 <template lang="pug">
   div(class="user")
-    img(:src="user.avatar")
+    img(:src="user.avatar" :alt="user.name")
     div
-      router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-      p {{user.introduction.substring(0, 50)}}
+      router-link.user-profile-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
+      p(v-if="user.introduction") {{user.introduction.substring(0, 50)}}
+      p(v-else) no introduction yet
       button(v-if="isFollowing" @click="removeFollowing({UserId:user.id})") Unfollow
       button(v-else-if="account.id !== user.id" @click="addFollowing({UserId:user.id})") Follow
 </template>
@@ -36,7 +37,7 @@ export default {
   grid-column-gap: 20px;
   border: 1px solid #b2b4b2;
   border-radius: 3px;
-
+  max-height:140px;
   > img {
     width: 100%;
     align-self: center;
@@ -45,6 +46,9 @@ export default {
     display: grid;
     grid-template-rows: 30px 50px 30px;
     grid-row-gap: 10px;
+    .user-profile-link {
+      cursor: pointer;
+    }
     > span {
       font-size: 18px;
       color: #4d85c2;

@@ -1,95 +1,39 @@
 <template lang="pug">
   div(id="content")
     div(class="container")
-      div(id="user-profile")
-        div
-          img(:src="user.image")
-          h3 {{user.name}}
-          p {{user.description}}
-        div
-          p Tweets {{tweets.length}}
-          p Followings {{user.followings}}
-          p Followers {{user.followers}}
-          p like {{likes}}
-        router-link(:to="`/users/${user.id}/edit`" tag="button") Edit Profile
+      user-side-bar#user-profile(:user="user")
       main
         h3 Like
         div(id="user-tweets")
           template(v-for="tweet in tweets")
-            tweet(:tweet="tweet")
+            tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweets.id")
 
 </template>
 
 <script>
 import Tweet from '@/components/Tweet.vue'
+import UserSideBar from '@/components/UserSideBar.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'profile',
   components: {
-    Tweet
+    Tweet,
+    UserSideBar
   },
-  data () {
-    return {
-      user: {
-        id: 1,
-        name: 'miayang0513',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat et dicta laboriosam deleniti quidems.',
-        image: 'https://picsum.photos/100',
-        followings: 10,
-        followers: 20
-      },
-      tweets: [
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        },
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        },
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        },
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        },
-        {
-          userId: 1,
-          username: 'miayang0513',
-          text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo vel, nisi, aspernatur quae laudantium dolorum',
-          image: 'https://picsum.photos/100',
-          createdAt: new Date().toISOString(),
-          replyCounts: 3,
-          likeCounts: 10
-        }
-      ]
-    }
-  },
+  // data () {
+  //   return {
+  //   }
+  // },
   computed: {
-    likes () {
-      return this.tweets.map(tweet => tweet.likeCounts).reduce((a, b) => a + b)
+    ...mapState('user', {
+      user: state => state
+    }),
+    ...mapState('account', {
+      account: state => state
+    }),
+    tweets () {
+      return this.user.LikedTweets
     }
   }
 }

@@ -1,14 +1,15 @@
 <template lang="pug">
   div(id="user-profile")
     div
-      img(:src="currentUser.avatar")
+      img(:src="currentUser.avatar" :alt="user.name")
       h3 {{currentUser.name}}
-      p {{currentUser.introduction.substring(0, 50)}}
+      p(v-if="user.introduction") {{user.introduction.substring(0, 50)}}
+      p(v-else) no introduction yet
     div
-      p Tweets {{currentUser.Tweets.length}}
-      p Followings {{currentUser.Followings.length}}
-      p Followers {{currentUser.Followers.length}}
-      p like {{currentUser.LikedTweets.length}}
+      router-link(:to="`/users/${currentUser.id}/tweets`" tag="p") Tweets {{currentUser.Tweets.length}}
+      router-link(:to="`/users/${currentUser.id}/followings`" tag="p") Followings {{currentUser.Followings.length}}
+      router-link(:to="`/users/${currentUser.id}/followers`" tag="p") Followers {{currentUser.Followers.length}}
+      router-link(:to="`/users/${currentUser.id}/likes`" tag="p") like {{currentUser.LikedTweets.length}}
     router-link(v-if="user.id === account.id" :to="`/users/${account.id}/edit`" tag="button") Edit Profile
     span(v-else) Follow/Unfollow
 </template>
@@ -71,6 +72,7 @@ export default {
     grid-row-gap: 10px;
     justify-items: flex-start;
     > p {
+      cursor: pointer;
       color: #4c4c4c;
       font-weight: 500;
       font-size: 18px;

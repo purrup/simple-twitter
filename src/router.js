@@ -54,11 +54,6 @@ export default new Router({
       component: () => import('./views/Logout.vue')
     },
     {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('./views/Signup.vue')
-    },
-    {
       path: '/tweets/:id/replies',
       name: 'reply',
       component: () => import('./views/Reply.vue'),
@@ -87,6 +82,11 @@ export default new Router({
       path: '/users/:id/likes',
       name: 'like',
       component: () => import('./views/Like.vue')
+    },
+    {
+      path: '/admin/tweets',
+      name: 'admin',
+      component: () => import('./views/Admin.vue')
     }
   ]
 })

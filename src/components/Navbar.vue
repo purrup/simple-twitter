@@ -1,10 +1,13 @@
 <template lang="pug">
   div(id="navbar" v-if="$route.path !== '/logout'")
     div(class="container")
-      router-link(to="/tweets" tag="h3") Simple Twitter
+      router-link(to="/tweets")
+        i.fab.fa-twitter.twitter-icon
+      router-link(to="/admin/tweets" tag="span") admin
       template(v-if="account.isLogin")
-        img(:src="account.avatar" :alt="account.name")
-        span(@click="logout") Logout
+        router-link.user-profile-img(:to="`/users/${account.id}/tweets`")
+          img(:src="account.avatar" :alt="account.name")
+        button(@click="logout") Logout
 </template>
 
 <script>
@@ -32,33 +35,67 @@ export default {
 
 <style lang="scss" scoped>
 #navbar {
-  padding: 5px 0px;
-  background-color: rgba(44, 161, 242, 0.9);
+  height: 50px;
+  padding: 10px 0px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
   .container {
     width: 80%;
     margin: 0 auto;
     display: grid;
     grid-template-rows: 50px;
-    grid-template-columns: 150px 1fr 60px 10px 70px;
-    grid-template-areas: "left-logo . right-logo . button";
-    h3 {
-      grid-area: left-logo;
+    grid-template-columns: 150px 1fr 80px 70px 10px 100px;
+    grid-template-areas: "left-logo . admin right-logo . button";
+    a {
       align-self: center;
+    }
+    i {
+      grid-area: left-logo;
       margin: 0;
-      font-size: 20px;
+      color: #1da1f2;
+      font-size: 2.5em;
       cursor: pointer;
     }
-    img {
+    .user-profile-img {
       grid-area: right-logo;
-      width: 100%;
+    }
+    img {
+      align-self: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
     }
     span {
-      grid-area: button;
+      &:hover {
+        background-color: #eaf5fd;
+        color: #1da1f2;
+        transition: background 0.2s linear;
+        border: 1px solid #1da1f2;
+      }
+      padding: 10px 0;
+      border-radius: 20px;
+      grid-area: admin;
       font-size: 20px;
       font-weight: 600;
       align-self: center;
-      color: #03697f;
+      color: #1da1f2;
       cursor: pointer;
+    }
+    button {
+      grid-area: button;
+      &:hover {
+        background-color: #eaf5fd;
+        color: #1da1f2;
+        transition: background 0.2s linear;
+      }
+      cursor: pointer;
+      border-radius: 100px;
+      -moz-border-radius: 100px;
+      -webkit-border-radius: 100px;
+      padding: 12px;
+      font-weight: 800;
+      border: 1px solid #1da1f2;
+      color: #1da1f2;
     }
   }
 }
