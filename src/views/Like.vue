@@ -16,7 +16,7 @@ import UserSideBar from '@/components/UserSideBar.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'profile',
+  name: 'like',
   components: {
     Tweet,
     UserSideBar
@@ -46,8 +46,7 @@ export default {
           likedTweets.push(likedTweet)
         }
       })
-      console.log(likedTweets)
-      return likedTweets
+      return likedTweets.slice().sort((a, b) => new Date(b.Like.createdAt) - new Date(a.Like.createdAt))
     }
   }
 }

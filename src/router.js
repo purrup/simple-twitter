@@ -25,7 +25,7 @@ export default new Router({
           await store.dispatch('topUsers/getTopUsers')
           next()
         } catch (error) {
-          next({ path: '/login' })
+          next({ path: '/logout' })
           throw error
         }
       }
@@ -111,7 +111,21 @@ export default new Router({
     {
       path: '/admin/tweets',
       name: 'admin',
-      component: () => import('./views/Admin.vue')
+      component: () => import('./views/Admin.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          const role = store.state.account.role
+          if (role !== 'admin') {
+            alert('Sorry, you are not authorized user.')
+            next({ path: '/tweets' })
+          }
+          await store.dispatch('tweet/getTweets')
+          await store.dispatch('user/getAllUsers')
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
     }
   ]
 })

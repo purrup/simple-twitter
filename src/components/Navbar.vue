@@ -3,7 +3,7 @@
     div(class="container")
       router-link(to="/tweets")
         i.fab.fa-twitter.twitter-icon
-      router-link(to="/admin/tweets" tag="span") admin
+      router-link(to="/admin/tweets" tag="span" v-if="account.role === 'admin' ") admin
       template(v-if="account.isLogin")
         router-link.user-profile-img(:to="`/users/${account.id}/tweets`")
           img(:src="account.avatar" :alt="account.name")
@@ -36,7 +36,7 @@ export default {
 <style lang="scss" scoped>
 #navbar {
   height: 50px;
-  padding: 10px 0px;
+  padding: 13px 0px;
   background-color: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   .container {

@@ -35,7 +35,7 @@ export default {
       account: state => state
     }),
     followers () {
-      return this.user.Followers
+      return this.user.Followers.slice().sort((a, b) => new Date(b.Followship.createdAt) - new Date(a.Followship.createdAt))
     }
   },
   methods: {

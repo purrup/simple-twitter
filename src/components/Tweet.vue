@@ -67,9 +67,10 @@ export default {
 
 <style lang="scss" scoped>
 .tweets {
+  width: 500px;
   font-size: 16px;
   border: 1px solid #b2b4b2;
-  border-radius: 3px;
+  border-radius: 5px;
   padding: 10px;
   display: grid;
   grid-template-columns: 100px 1fr;

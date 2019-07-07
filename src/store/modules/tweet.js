@@ -118,6 +118,10 @@ const mutations = {
     const tweet = state.tweets.find(item => item.id === data.tweetId)
     const index = tweet.LikedUsers.findIndex(item => item.id === data.accountId)
     tweet.LikedUsers.splice(index, 1)
+  },
+  DELETE_TWEET (state, data) {
+    const index = state.tweets.findIndex(item => item.id === data.id)
+    state.tweets.splice(index, 1)
   }
 }
 const actions = {
@@ -146,7 +150,6 @@ const actions = {
         method: 'post',
         data: JSON.stringify({ description: params.description })
       })
-      console.log(result)
       context.commit('PUSH_TWEET', result.data)
     } catch (error) {
       throw error
@@ -180,6 +183,16 @@ const actions = {
       await axios(`/tweets/${params.tweetId}/unlike`, {
         method: 'post'
       })
+    } catch (error) {
+      throw error
+    }
+  },
+  async deleteTweet (context, params) {
+    try {
+      await axios(`/admin/tweets/${params.id}`, {
+        method: 'delete'
+      })
+      context.commit('DELETE_TWEET', params)
     } catch (error) {
       throw error
     }
