@@ -1,6 +1,6 @@
 <template lang="pug">
 
-  .container#logout
+  .container#login
     .left-side
       .background-img
       .features
@@ -50,8 +50,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'Logout',
+  name: 'Login',
   data () {
     return {
       show: true,
@@ -60,20 +62,29 @@ export default {
       password: ''
     }
   },
+  computed: {
+    ...mapGetters('account', {
+      account: 'getAccount'
+    })
+  },
   methods: {
     async login () {
       try {
         await this.$store.dispatch('account/login', { email: this.email, password: this.password })
         this.$router.push('/tweets')
+        const msg = `Log in successfully! Hello ${this.account.name}!`
+        this.$store.dispatch('notification/setSuccessMessage', msg)
       } catch (error) {
+        this.$store.dispatch('notification/setErrorMessage', error)
         console.log(error)
       }
     },
     async signup () {
       try {
         await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
-        this.$router.push('/logout')
-        alert('Sign up successfully! Please log in now.')
+        this.$router.push('/login')
+        const msg = 'Sign up successfully! Please log in now.'
+        this.$store.dispatch('notification/setSuccessMessage', msg)
       } catch (error) {
         console.log(error)
       }
@@ -85,7 +96,7 @@ export default {
 <style lang='scss' scoped>
 $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_logo_2012.svg");
 
-.container#logout {
+.container#login {
   grid-row: 1 / span 2;
   display: grid;
   height: 100%;

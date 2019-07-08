@@ -15,7 +15,7 @@ router.beforeEach(async (to, from, next) => {
     next()
   } catch (error) {
     console.log('logout')
-    next({ path: '/logout' })
+    next({ path: '/login' })
     throw error
   }
 })

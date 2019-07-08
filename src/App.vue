@@ -1,15 +1,35 @@
 <template lang="pug">
   div(id="app")
-    navbar(v-if="$route.path !== '/logout'")
+    navbar(v-if="$route.path !== '/login'")
     router-view
+    notification(:error="errorMsg" :success="successMsg")
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Notification from '@/components/Notification.vue'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Notification
+  },
+  computed: {
+    ...mapState('notification', {
+      successMsg: state => state.successMsg,
+      errorMsg: state => state.errorMsg
+    })
+  },
+  methods: {
+    ...mapActions('notification', ['deleteMessage']),
+    deleteMessage () {
+      this.deleteMessage()
+    }
+  },
+  destroyed () {
+    console.log('destroyed')
+    this.deleteMessage()
   }
 }
 </script>

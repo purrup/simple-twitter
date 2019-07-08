@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(id="navbar" v-if="$route.path !== '/logout'")
+  div(id="navbar" v-if="$route.path !== '/login'")
     div(class="container")
       router-link(to="/tweets")
         i.fab.fa-twitter.twitter-icon
@@ -24,7 +24,7 @@ export default {
     async logout () {
       try {
         await this.$store.dispatch('account/logout')
-        this.$router.push('/logout')
+        this.$router.push('/login')
       } catch (error) {
         console.log(error)
       }

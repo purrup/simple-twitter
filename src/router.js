@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 // import store from '@/store'
+let msg = ''
 
 Vue.use(Router)
 
@@ -25,7 +26,7 @@ export default new Router({
           await store.dispatch('topUsers/getTopUsers')
           next()
         } catch (error) {
-          next({ path: '/logout' })
+          next({ path: '/login' })
           throw error
         }
       }
@@ -49,9 +50,9 @@ export default new Router({
       component: () => import('./views/ProfileEdit.vue')
     },
     {
-      path: '/logout',
-      name: 'logout',
-      component: () => import('./views/Logout.vue')
+      path: '/login',
+      name: 'Login',
+      component: () => import('./views/Login.vue')
     },
     {
       path: '/tweets/:id/replies',
@@ -116,7 +117,9 @@ export default new Router({
         try {
           const role = store.state.account.role
           if (role !== 'admin') {
-            alert('Sorry, you are not authorized user.')
+            msg = 'Not Authorized to Access.'
+            console.log(msg)
+            await store.dispatch('notification/setErrorMessage', msg)
             next({ path: '/tweets' })
           }
           await store.dispatch('tweet/getTweets')
