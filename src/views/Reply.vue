@@ -142,6 +142,7 @@ export default {
     #replies {
       grid-row: 2;
       display: grid;
+      width: 520px;
       height: 350px;
       grid-template-rows: auto;
       grid-row-gap: 10px;

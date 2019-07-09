@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 // import store from '@/store'
-let msg = ''
 
 Vue.use(Router)
 
@@ -117,9 +116,7 @@ export default new Router({
         try {
           const role = store.state.account.role
           if (role !== 'admin') {
-            msg = 'Not Authorized to Access.'
-            console.log(msg)
-            await store.dispatch('notification/setErrorMessage', msg)
+            await store.dispatch('notification/setErrorMessage', 'Not Authorized to Access.')
             next({ path: '/tweets' })
           }
           await store.dispatch('tweet/getTweets')

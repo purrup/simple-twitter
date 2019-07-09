@@ -51,7 +51,7 @@ export default {
       text-align: left;
       margin: 0;
       font-size: 22px;
-      color:#71a6d0;
+      color:#1da1f2;
     }
     .container {
       width: 75%;

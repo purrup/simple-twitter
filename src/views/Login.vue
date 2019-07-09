@@ -72,10 +72,12 @@ export default {
       try {
         await this.$store.dispatch('account/login', { email: this.email, password: this.password })
         this.$router.push('/tweets')
-        const msg = `Log in successfully! Hello ${this.account.name}!`
-        this.$store.dispatch('notification/setSuccessMessage', msg)
+        this.$store.dispatch('notification/setSuccessMessage', `Log in successfully! Hello ${this.account.name}!`)
       } catch (error) {
-        this.$store.dispatch('notification/setErrorMessage', error)
+        console.log('status:', error.response.status)
+        if (error.response.status === 401) {
+          this.$store.dispatch('notification/setErrorMessage', 'Incorrect Email or Password!')
+        }
         console.log(error)
       }
     },
@@ -83,9 +85,12 @@ export default {
       try {
         await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
         this.$router.push('/login')
-        const msg = 'Sign up successfully! Please log in now.'
-        this.$store.dispatch('notification/setSuccessMessage', msg)
+        this.$store.dispatch('notification/setSuccessMessage', 'Sign up successfully! Please log in now.')
       } catch (error) {
+        if (error.response.status === 406) {
+          this.$store.dispatch('notification/setErrorMessage', 'This Email had been registered!')
+        }
+        console.log(error.response.status)
         console.log(error)
       }
     }
@@ -97,6 +102,7 @@ export default {
 $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_logo_2012.svg");
 
 .container#login {
+  // background-color: #fff;
   grid-row: 1 / span 2;
   display: grid;
   height: 100%;
@@ -113,7 +119,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
       width: 60%;
       height: 100%;
       grid-row: 2 / 4;
-      z-index: 1;
+      z-index: 2;
       place-self: center;
       font-size: 0.5em;
       color: white;
@@ -146,11 +152,12 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
       background-attachment: fixed;
       background-size: auto 140%;
       background-position: -70% 50%;
-      z-index: -1;
+      z-index: 1;
     }
 
   }
   .right-side {
+    background-color: #fff;
     grid-column: 2;
     grid-row: 1 / span 2;
     display: grid;
@@ -166,7 +173,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
         height: 100%;
         display: grid;
         grid-column-gap: 15px;
-        grid-template-columns: 44% 44% 12%;
+        grid-template-columns: 40% 40% 18%;
         .form-group input  {
           width: 90%;
           padding: 12px;
@@ -183,6 +190,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
             color: #1da1f2;
             transition: background 0.2s linear;
           }
+          font-size: 1.2em;
           cursor: pointer;
           border-radius: 100px;
           -moz-border-radius: 100px;
@@ -207,10 +215,11 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
           background-color: #006dbf;
           border-color: #006dbf;
         }
+        font-size: 1.4em;
         width: 100%;
         border-radius: 100px;
         cursor: pointer;
-        font-size: 14px;
+        // font-size: 14px;
         font-weight: bold;
         line-height: 20px;
         padding: 8px 16px;
@@ -270,6 +279,7 @@ $twitter-bird: url("https://upload.wikimedia.org/wikipedia/zh/9/9f/Twitter_bird_
     opacity: 0;
   }
   .footer {
+    z-index: 10;
     grid-column: 1 / span 2;
     grid-row: 3;
     background-color: white;

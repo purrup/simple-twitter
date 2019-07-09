@@ -41,6 +41,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+  background-color: #E6ECF0;
 }
 #app {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -50,7 +51,7 @@ body {
   color: #2c3e50;
   height: 100%;
   display: grid;
-  grid-template-rows: 100px auto;
+  grid-template-rows: 120px auto;
 }
 .container {
   width: 80%;

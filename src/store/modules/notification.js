@@ -13,7 +13,6 @@ const mutations = {
     state.successMsg.push(message)
   },
   SET_ERROR (state, message) {
-    console.log('mutations:', message)
     state.errorMsg.push(message)
   },
   DELETE_MESSAGE (state) {
@@ -27,7 +26,6 @@ const actions = {
     context.commit('SET_SUCCESS', message)
   },
   setErrorMessage (context, message) {
-    console.log('actions:', message)
     context.commit('SET_ERROR', message)
   },
   deleteMessage (context) {

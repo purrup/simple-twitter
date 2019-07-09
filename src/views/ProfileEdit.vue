@@ -24,6 +24,7 @@ export default {
     this.name = this.account.name
     this.introduction = this.account.introduction
   },
+
   computed: {
     ...mapState('account', {
       account: state => state
@@ -33,13 +34,15 @@ export default {
     ...mapActions('account', ['putUser']),
     checkBeforeUpdate () {
       if (this.name === '' || this.introduction === '') {
-        alert('請填入資料！')
+        // alert('請填入資料！')
+        this.$store.dispatch('notification/setErrorMessage', '請填入資料！')
         return
       }
       this.putUser({
         name: this.name,
         introduction: this.introduction
-      })
+      },
+      this.$store.dispatch('notification/setSuccessMessage', '修改完成'))
       this.$router.go(-1)
     }
   }

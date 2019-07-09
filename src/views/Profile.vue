@@ -94,6 +94,7 @@ export default {
   #user-tweets {
     height: 650px;
     display: grid;
+    justify-content: center;
     grid-auto-rows: 150px;
     grid-row-gap: 30px;
     overflow-y: scroll;

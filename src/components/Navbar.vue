@@ -1,7 +1,9 @@
 <template lang="pug">
   div(id="navbar" v-if="$route.path !== '/login'")
     div(class="container")
-      router-link(to="/tweets")
+      router-link.home(to="/tweets")
+        i.fas.fa-home
+      router-link.logo(to="/tweets")
         i.fab.fa-twitter.twitter-icon
       router-link(to="/admin/tweets" tag="span" v-if="account.role === 'admin' ") admin
       template(v-if="account.isLogin")
@@ -25,6 +27,7 @@ export default {
       try {
         await this.$store.dispatch('account/logout')
         this.$router.push('/login')
+        this.$store.dispatch('notification/setSuccessMessage', 'Log Out Successfully.')
       } catch (error) {
         console.log(error)
       }
@@ -36,7 +39,7 @@ export default {
 <style lang="scss" scoped>
 #navbar {
   height: 50px;
-  padding: 13px 0px;
+  padding: 15px 0px;
   background-color: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   .container {
@@ -44,12 +47,19 @@ export default {
     margin: 0 auto;
     display: grid;
     grid-template-rows: 50px;
-    grid-template-columns: 150px 1fr 80px 70px 10px 100px;
-    grid-template-areas: "left-logo . admin right-logo . button";
+    grid-template-columns: 150px 1.25fr 150px 0.75fr 100px 10px 100px;
+    grid-template-areas: "home . left-logo . admin right-logo . button";
     a {
       align-self: center;
     }
-    i {
+    .home {
+      grid-area: home;
+      margin: 0;
+      color: #1da1f2;
+      font-size: 2.5em;
+      cursor: pointer;
+    }
+    .logo {
       grid-area: left-logo;
       margin: 0;
       color: #1da1f2;
@@ -88,6 +98,7 @@ export default {
         color: #1da1f2;
         transition: background 0.2s linear;
       }
+      font-size: 1em;
       cursor: pointer;
       border-radius: 100px;
       -moz-border-radius: 100px;

@@ -69,7 +69,8 @@ export default {
 .tweets {
   width: 500px;
   font-size: 16px;
-  border: 1px solid #b2b4b2;
+  background-color: #fff;
+  border: 1px solid #a0cfee;
   border-radius: 5px;
   padding: 10px;
   display: grid;
@@ -87,7 +88,7 @@ export default {
     justify-items: flex-start;
     > div {
       span {
-        color: #4d85c2;
+        color: #006dbf;
         font-weight: 600;
         cursor: pointer;
       }
@@ -98,7 +99,7 @@ export default {
     }
     > div {
       .reply {
-        color: #76a9d1;
+        color: #006dbf;
         padding-right: 10px;
       }
       .like {

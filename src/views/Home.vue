@@ -46,10 +46,12 @@ export default {
     ...mapActions('tweet', ['postTweet']),
     checkBeforePost () {
       if (this.description === '') {
-        alert('請填入資訊！')
+        // alert('請填入資訊！')
+        this.$store.dispatch('notification/setErrorMessage', 'Please tweet something before submit.')
         return
       } else if (this.description.length > 140) {
-        alert('長度必須小於140字！')
+        // alert('長度必須小於140字！')
+        this.$store.dispatch('notification/setErrorMessage', '長度必須小於140字！')
         return
       }
       this.postTweet({ description: this.description })
@@ -70,32 +72,50 @@ export default {
     #main {
       grid-area: left;
       display: grid;
-      grid-template-rows: 250px 400px;
+      grid-template-rows: 200px 450px;
       grid-row-gap: 40px;
+      justify-content: center;
       #send-tweets {
         display: grid;
-        grid-template-rows: 200px 30px;
+        grid-auto-columns: 1fr;
+        grid-template-rows: 110px 50px;
         grid-row-gap: 20px;
+        width: 100%;
+        // justify-items: center;
+        // justify-content: center;
+        justify-self: center;
         > textarea {
           padding: 0;
-          border: 2px solid #a5cbde;
-          border-radius: 4px;
+          border: 1px solid #a0cfee ;
+          border-radius: 10px;
+          -moz-border-radius: 10px;
+          -webkit-border-radius: 10px;
           width: 100%;
           height: 100%;
           resize: none;
           outline: none;
-          font-size: 20px;
+          font-size: 1.2em;
           padding: 3px;
+          &:focus {
+            border-color: rgba(0,132,180,0.5);
+          }
         }
         > button {
-          font-size: 16px;
-          color: #113743;
-          background-color: #71a6d0;
-          border-radius: 4px;
-          line-height: 30px;
-          width: 80px;
+          &:hover {
+            background-color: #006dbf;
+            transition: background 0.2s linear;
+          }
+          font-size: 1.3em;
+          cursor: pointer;
+          border-radius: 100px;
+          -moz-border-radius: 100px;
+          -webkit-border-radius: 100px;
+          padding: 12px 20px;
+          font-weight: 600;
+          background-color: #1DA1F2;
+          color: #fff;
           justify-self: flex-end;
-          font-weight: 500;
+          // border: 1px solid #1da1f2;
         }
       }
       #tweets {
@@ -104,6 +124,7 @@ export default {
         grid-auto-flow: row;
         grid-row-gap: 30px;
         overflow-y: scroll;
+        justify-content: center;
       }
     }
     #side-bar {
@@ -113,9 +134,9 @@ export default {
       grid-row-gap: 20px;
 
       > h3 {
-        font-size: 20px;
+        font-size: 1.5em;
         margin: 0;
-        color: #01687e;
+        color: #1da1f2;
         text-align: left;
       }
       #topUsers {

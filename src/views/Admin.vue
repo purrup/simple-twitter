@@ -1,8 +1,9 @@
 <template lang="pug">
   main
     #panel-switch
-      span(@click="switchToTweets") Tweets
-      span(@click="switchToUsers") Users
+      #switch
+        span(@click="switchToTweets" :class="{ active: showTweets === true }") Tweets
+        span(@click="switchToUsers" :class="{ active: showUsers === true }") Users
     #panel
       transition(name="fade" mode="in-out")
         #tweets(v-show="showTweets")
@@ -106,8 +107,13 @@ export default {
       flex-flow: row nowrap;
       justify-content: start;
       align-items: center;
+      #switch {
+        width: 200px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-evenly;
+      }
       span {
-        padding: 0 15px;
         color: #1da1f2;
         cursor: pointer;
         font-size: 1.5em;
@@ -120,8 +126,9 @@ export default {
     }
     #panel {
       grid-row: 3;
-      height: 70%;
-      overflow-x: auto;
+      height: 100%;
+      // overflow-x: auto;
+      padding-bottom: 5%;
     }
     #tweets {
       display: grid;
@@ -139,6 +146,7 @@ export default {
     #users {
       width: 85%;
       margin: 0 auto;
+      background-color: #fff;
       border-top: 1px solid rgba(0,0,0,0.25);
       border-left: 1px solid rgba(0,0,0,0.25);
       display: grid;
@@ -153,6 +161,7 @@ export default {
         border-bottom: 1px solid rgba(0,0,0,0.25);
       }
       > * {
+        font-size: 1.5em;
         width: 100%;
         height: 100%;
         display: flex;
@@ -175,6 +184,11 @@ export default {
         grid-area: Likes;
       }
       .user {
+        &:hover {
+          background-color: rgba(245, 248, 246, 0.993);
+          // background-color: #1da0f2fb;
+          transition: background 0.1s linear;
+        }
         height: 100%;
         grid-column: 1 / span 5;
         height: 50px;

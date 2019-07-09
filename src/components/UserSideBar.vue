@@ -47,6 +47,7 @@ export default {
 
 <style lang="scss" scoped>
 #user-profile {
+  // background-color: #fff;
   display: grid;
   grid-template-rows: 300px 130px 50px;
   grid-row-gap: 20px;
@@ -62,7 +63,7 @@ export default {
     > h3 {
       margin: 0;
       font-size: 22px;
-      color: #3d8293;
+      color: #1da1f2;
     }
     > p {
       margin: 0;
@@ -87,13 +88,19 @@ export default {
     }
   }
   > button {
+    &:hover {
+      background-color: #006dbf;
+      transition: background 0.2s linear;
+    }
     width: 90%;
-    font-size: 18px;
-    color: #113743;
-    background-color: #71a6d0;
-    font-weight: 500;
-    border: none;
+    font-size: 1.3em;
+    cursor: pointer;
     border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    font-weight: 600;
+    background-color: #1DA1F2;
+    color: #fff;
   }
 }
 </style>
