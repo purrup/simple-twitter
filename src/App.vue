@@ -26,10 +26,6 @@ export default {
     deleteMessage () {
       this.deleteMessage()
     }
-  },
-  destroyed () {
-    console.log('destroyed')
-    this.deleteMessage()
   }
 }
 </script>

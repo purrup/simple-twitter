@@ -34,8 +34,8 @@ export default {
     ...mapMutations('user', ['ADD_USER_TWEET_LIKE', 'REMOVE_USER_TWEET_LIKE']),
     ...mapActions('tweet', ['addLike', 'removeLike']),
     postLike (accountId, tweetId) {
-      if (this.$route.path === '/tweets') {
-        console.log('add like in homepage')
+      if (this.$route.path === '/tweets' || this.$route.path.includes('likes')) {
+        console.log('add like in homepage or Like page')
         this.ADD_TWEETS_LIKE({ accountId, tweetId })
       } else if (this.$route.path.includes('users')) {
         console.log('add like in profile')
@@ -48,8 +48,8 @@ export default {
       this.addLike({ accountId, tweetId })
     },
     deleteLike (accountId, tweetId) {
-      if (this.$route.path === '/tweets') {
-        console.log('remove like in homepage')
+      if (this.$route.path === '/tweets' || this.$route.path.includes('likes')) {
+        console.log('remove like in homepage or Like page')
         this.REMOVE_TWEETS_LIKE({ accountId, tweetId })
       } else if (this.$route.path.includes('users')) {
         console.log('remove like in profile')

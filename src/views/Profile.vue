@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     ...mapState('user', {
-      user: state => state
+      user: state => state.user
     }),
     ...mapState('account', {
       account: state => state

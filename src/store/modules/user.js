@@ -37,18 +37,20 @@ const getters = {}
 
 const mutations = {
   SET_USER (state, data) {
-    Object.assign(state, data)
+    Object.assign(state.user, data)
   },
   SET_USERS (state, data) {
     data.sort((a, b) => b.Tweets.length - a.Tweets.length)
-    Object.assign(state, data)
+    Object.assign(state.users, data)
   },
   ADD_USER_TWEET_LIKE (state, data) {
-    const tweet = state.Tweets.find(item => item.id === data.tweetId)
+    const tweet = state.user.Tweets.find(item => item.id === data.tweetId)
+    console.log('tweet.LikedUsers', tweet.LikedUsers)
     tweet.LikedUsers.push({ id: data.accountId })
   },
   REMOVE_USER_TWEET_LIKE (state, data) {
-    const tweet = state.Tweets.find(item => item.id === data.tweetId)
+    const tweet = state.user.Tweets.find(item => item.id === data.tweetId)
+    console.log('tweet.LikedUsers', tweet.LikedUsers)
     const index = tweet.LikedUsers.findIndex(item => item.id === data.accountId)
     tweet.LikedUsers.splice(index, 1)
   }

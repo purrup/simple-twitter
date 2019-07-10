@@ -52,7 +52,7 @@ export default {
       account: state => state
     }),
     ...mapState('user', {
-      users: state => state
+      users: state => state.users
     })
   },
   methods: {

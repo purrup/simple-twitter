@@ -34,7 +34,7 @@ export default {
       tweet: state => state.tweet
     }),
     ...mapState('user', {
-      user: state => state
+      user: state => state.user
     }),
     ...mapState('account', {
       account: state => state
