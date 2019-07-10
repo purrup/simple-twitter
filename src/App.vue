@@ -2,7 +2,7 @@
   div(id="app")
     navbar(v-if="$route.path !== '/login'")
     router-view
-    notification(:error="errorMsg" :success="successMsg")
+    notification(:error="errorMsg" :success="successMsg" @deleteMessage="deleteMsg")
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     ...mapActions('notification', ['deleteMessage']),
-    deleteMessage () {
+    deleteMsg () {
       this.deleteMessage()
     }
   }

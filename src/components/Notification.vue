@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     deleteMsg () {
-      this.$emit('deleteMsg')
+      this.$emit('deleteMessage')
     }
   }
 }
