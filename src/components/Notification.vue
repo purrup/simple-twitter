@@ -1,22 +1,19 @@
 <template lang="pug">
-  span.success(v-if="success.length !== 0" @click="deleteMsg") {{success[0]}}
-  span.error(v-else-if="error.length !== 0" @click="deleteMsg") {{error[0]}}
+  span.success(v-if="success" @click="DELETE_MESSAGE") {{success}}
+  span.error(v-else-if="error" @click="DELETE_MESSAGE") {{error}}
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'notification',
   props: {
-    error: Array,
-    success: Array
-  },
-  computed: {
+    error: String,
+    success: String
   },
   methods: {
-    deleteMsg () {
-      this.$emit('deleteMsg')
-    }
+    ...mapMutations('notification', ['DELETE_MESSAGE'])
   }
 }
 </script>

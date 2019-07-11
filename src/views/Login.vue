@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'Login',
@@ -68,15 +68,19 @@ export default {
     })
   },
   methods: {
+    ...mapMutations('notification', ['SET_SUCCESS', 'SET_ERROR', 'DELETE_MESSAGE']),
     async login () {
       try {
         await this.$store.dispatch('account/login', { email: this.email, password: this.password })
         this.$router.push('/tweets')
         const msg = `Log in successfully! Hello ${this.account.name}!`
-        this.$store.dispatch('notification/setSuccessMessage', msg)
+        this.SET_SUCCESS(msg)
       } catch (error) {
-        this.$store.dispatch('notification/setErrorMessage', error)
-        console.log(error)
+        if (error.response.status === 401) {
+          this.SET_ERROR('Wrong Password!')
+        } else if (error.response.status === 404) {
+          this.SET_ERROR('Account Not Found!')
+        }
       }
     },
     async signup () {
@@ -84,9 +88,9 @@ export default {
         await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
         this.$router.push('/login')
         const msg = 'Sign up successfully! Please log in now.'
-        this.$store.dispatch('notification/setSuccessMessage', msg)
+        this.SET_SUCCESS(msg)
       } catch (error) {
-        console.log(error)
+        this.SET_ERROR(error)
       }
     }
   }

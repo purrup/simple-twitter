@@ -7,8 +7,7 @@
         span , {{tweet.createdAt}}
       p {{tweet.description.substring(0, 50)}}
       div
-        router-link(v-if="tweet.Replies.length !== 0" :to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
-        router-link(v-else :to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply(0)
+        router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
         span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
         span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
 </template>

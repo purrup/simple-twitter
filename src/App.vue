@@ -8,7 +8,7 @@
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Notification from '@/components/Notification.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -20,12 +20,6 @@ export default {
       successMsg: state => state.successMsg,
       errorMsg: state => state.errorMsg
     })
-  },
-  methods: {
-    ...mapActions('notification', ['deleteMessage']),
-    deleteMessage () {
-      this.deleteMessage()
-    }
   },
   destroyed () {
     console.log('destroyed')

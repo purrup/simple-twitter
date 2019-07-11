@@ -1,38 +1,25 @@
 // import axios from '../axios.js'
 
 const state = {
-  successMsg: [],
-  errorMsg: []
+  successMsg: '',
+  errorMsg: ''
 }
 
 const getters = {}
 
 const mutations = {
   SET_SUCCESS (state, message) {
-    console.log('mutations:', message)
-    state.successMsg.push(message)
+    state.successMsg = message
   },
   SET_ERROR (state, message) {
-    console.log('mutations:', message)
-    state.errorMsg.push(message)
+    state.errorMsg = message
   },
   DELETE_MESSAGE (state) {
-    state.successMsg.length = 0
-    state.errorMsg.length = 0
+    state.successMsg = ''
+    state.errorMsg = ''
   }
 }
 const actions = {
-  setSuccessMessage (context, message) {
-    console.log('actions:', message)
-    context.commit('SET_SUCCESS', message)
-  },
-  setErrorMessage (context, message) {
-    console.log('actions:', message)
-    context.commit('SET_ERROR', message)
-  },
-  deleteMessage (context) {
-    context.commit('DELETE_MESSAGE')
-  }
 }
 
 export default {
