@@ -120,10 +120,10 @@ export default {
       }
       #tweets {
         display: grid;
-        grid-auto-rows: 150px;
+        grid-auto-rows: 120px;
         grid-auto-flow: row;
         grid-row-gap: 30px;
-        overflow-y: scroll;
+        // overflow-y: scroll;
         justify-content: center;
       }
     }
@@ -132,6 +132,7 @@ export default {
       display: grid;
       grid-template-rows: 27px 643px;
       grid-row-gap: 20px;
+      width: 500px;
 
       > h3 {
         font-size: 1.5em;

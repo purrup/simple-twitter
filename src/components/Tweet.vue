@@ -67,6 +67,7 @@ export default {
 
 <style lang="scss" scoped>
 .tweets {
+  max-height: 120px;
   width: 500px;
   font-size: 16px;
   background-color: #fff;
@@ -74,11 +75,15 @@ export default {
   border-radius: 5px;
   padding: 10px;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 85px 1fr;
+  grid-auto-rows: 85px;
   grid-column-gap: 20px;
+  align-content: center;
 
   > img {
-    width: 100%;
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
     align-self: center;
   }
   > div {

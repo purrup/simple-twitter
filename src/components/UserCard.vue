@@ -40,7 +40,9 @@ export default {
   border-radius: 3px;
   max-height:140px;
   > img {
-    width: 100%;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
     align-self: center;
   }
   > div {

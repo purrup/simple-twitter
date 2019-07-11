@@ -8,7 +8,10 @@
       transition(name="fade" mode="in-out")
         #tweets(v-show="showTweets")
           template(v-for="tweet in tweets")
-            tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweet.id")
+            tweet#tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweet.id")
+            #replies
+              template(v-for="reply in tweet.Replies")
+                reply-card(:reply="reply" :key="reply.id")
             .delete(@click="removeTweet(tweet)") Delete
       transition(name="fade" mode="in-out")
         #users(v-show="showUsers")
@@ -20,23 +23,25 @@
           template(v-for="user in users")
             .user(:key="user.id")
               router-link.user-name(:to="`/users/${user.id}/tweets`") {{user.name}}
-              .user-tweets {{isZero(user.Tweets)}}
-              .user-followers {{isZero(user.Followers)}}
-              .user-followings {{isZero(user.Followings)}}
-              .user-likes {{LikedUsers(user.Tweets)}}
+              router-link.user-tweets(:to="`/users/${user.id}/tweets`") {{isZero(user.Tweets)}}
+              router-link.user-followers(:to="`/users/${user.id}/followers`") {{isZero(user.Followers)}}
+              router-link.user-followings(:to="`/users/${user.id}/followings`") {{isZero(user.Followings)}}
+              router-link.user-likes(:to="`/users/${user.id}/likes`") {{LikedUsers(user.Tweets)}}
 
 </template>
 
 <script>
 import Tweet from '@/components/Tweet.vue'
 import UserCard from '@/components/UserCard.vue'
+import ReplyCard from '@/components/ReplyCard.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'admin',
   components: {
     Tweet,
-    UserCard
+    UserCard,
+    ReplyCard
   },
   data () {
     return {
@@ -132,16 +137,22 @@ export default {
     }
     #tweets {
       display: grid;
-      grid-template-columns: 40% 20%;
-      grid-auto-rows: 110px;
-      grid-row-gap: 30px;
+      grid-template-columns: 40% 40% 20%;
+      grid-auto-rows: auto;
+      grid-row-gap: 50px;
       justify-content: center;
       justify-items: center;
-      .tweets {
-        width: 100%;
-        height:100%;
+      #tweet {
+        width: 95%;
+        height:80%;
         grid-column: 1;
       }
+      #replies {
+        width: 100%;
+        height:100%;
+        grid-column: 2;
+      }
+
     }
     #users {
       width: 85%;
@@ -159,6 +170,8 @@ export default {
       > span {
         border-right: 1px solid rgba(0,0,0,0.25);
         border-bottom: 1px solid rgba(0,0,0,0.25);
+        color: #66757f;
+        font-size: 1.2em;
       }
       > * {
         font-size: 1.5em;
@@ -205,6 +218,7 @@ export default {
           justify-content: center;
           align-items: center;
           text-decoration: none;
+          color: #1c94e0;
         }
         &:nth-child(1) {
           grid-area: Name;
@@ -224,7 +238,7 @@ export default {
       }
     }
     .delete {
-      grid-column: 2;
+      grid-column: 3;
       color: #FFF;
       width: 75px;
       height: 35px;
