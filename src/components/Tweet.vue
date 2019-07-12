@@ -4,7 +4,7 @@
     div
       div
         router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-        span , {{tweet.createdAt}}
+        span , {{date}}, {{time}}
       p {{tweet.description.substring(0, 50)}}
       div
         router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
@@ -25,6 +25,15 @@ export default {
   computed: {
     isLiked () {
       return this.account.LikedTweets.some(item => item.id === this.tweet.id)
+    },
+    date () {
+      const dateObj = new Date(this.tweet.createdAt)
+      const month = (dateObj.getMonth() + 1) < 10 ? '0' + (dateObj.getMonth() + 1) : (dateObj.getMonth() + 1)
+      return dateObj.getFullYear() + '-' + month + '-' + dateObj.getDate()
+    },
+    time () {
+      const dateObj = new Date(this.tweet.createdAt)
+      return dateObj.getHours() + ':' + dateObj.getMinutes()
     }
   },
   methods: {
@@ -33,8 +42,8 @@ export default {
     ...mapMutations('user', ['ADD_USER_TWEET_LIKE', 'REMOVE_USER_TWEET_LIKE']),
     ...mapActions('tweet', ['addLike', 'removeLike']),
     postLike (accountId, tweetId) {
-      if (this.$route.path === '/tweets') {
-        console.log('add like in homepage')
+      if (this.$route.path === '/tweets' || this.$route.path.includes('likes')) {
+        console.log('add like in homepage or Like page')
         this.ADD_TWEETS_LIKE({ accountId, tweetId })
       } else if (this.$route.path.includes('users')) {
         console.log('add like in profile')
@@ -47,8 +56,8 @@ export default {
       this.addLike({ accountId, tweetId })
     },
     deleteLike (accountId, tweetId) {
-      if (this.$route.path === '/tweets') {
-        console.log('remove like in homepage')
+      if (this.$route.path === '/tweets' || this.$route.path.includes('likes')) {
+        console.log('remove like in homepage or Like page')
         this.REMOVE_TWEETS_LIKE({ accountId, tweetId })
       } else if (this.$route.path.includes('users')) {
         console.log('remove like in profile')
@@ -68,7 +77,8 @@ export default {
 .tweets {
   width: 500px;
   font-size: 16px;
-  border: 1px solid #b2b4b2;
+  background-color: #fff;
+  border: 1px solid #a0cfee;
   border-radius: 5px;
   padding: 10px;
   display: grid;
@@ -86,7 +96,7 @@ export default {
     justify-items: flex-start;
     > div {
       span {
-        color: #4d85c2;
+        color: #006dbf;
         font-weight: 600;
         cursor: pointer;
       }
@@ -97,7 +107,7 @@ export default {
     }
     > div {
       .reply {
-        color: #76a9d1;
+        color: #006dbf;
         padding-right: 10px;
       }
       .like {

@@ -1,9 +1,11 @@
 <template lang="pug">
   div(id="navbar" v-if="$route.path !== '/login'")
     div(class="container")
-      router-link(to="/tweets")
+      router-link.home(to="/tweets")
+        i.fas.fa-home
+      router-link.logo(to="/tweets")
         i.fab.fa-twitter.twitter-icon
-      router-link(to="/admin/tweets" tag="span" v-if="account.role === 'admin' ") admin
+      router-link.admin.far.fa-user-cog(to="/admin/tweets" tag="i" v-if="account.role === 'admin' ")
       template(v-if="account.isLogin")
         router-link.user-profile-img(:to="`/users/${account.id}/tweets`")
           img(:src="account.avatar" :alt="account.name")
@@ -11,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'navbar',
@@ -21,10 +23,12 @@ export default {
     })
   },
   methods: {
+    ...mapActions('notification', ['addSuccess']),
     async logout () {
       try {
         await this.$store.dispatch('account/logout')
         this.$router.push('/login')
+        this.addSuccess('Successfully Log Out!')
       } catch (error) {
         console.log(error)
       }
@@ -35,50 +39,68 @@ export default {
 
 <style lang="scss" scoped>
 #navbar {
-  height: 50px;
-  padding: 13px 0px;
+  height: 46px;
+  // padding: 15px 0px;
   background-color: #fff;
   border-bottom: 1px solid rgba(0,0,0,0.25);
   .container {
     width: 80%;
     margin: 0 auto;
     display: grid;
-    grid-template-rows: 50px;
-    grid-template-columns: 150px 1fr 80px 70px 10px 100px;
-    grid-template-areas: "left-logo . admin right-logo . button";
+    grid-template-rows: 46px;
+    grid-template-areas: "home . left-logo . admin . right-logo . button";
+    grid-template-columns: 60px 1fr 150px 1fr 60px 10px 80px 10px 80px;
     a {
       align-self: center;
     }
-    i {
+    .home {
+      &:hover {
+        color: #1c94e0;
+        border-bottom: 2px solid #1c94e0;
+        transition: all .15s ease-in-out;
+      }
+      grid-area: home;
+      margin: 0;
+      color: #66757f;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    .logo {
       grid-area: left-logo;
       margin: 0;
       color: #1da1f2;
-      font-size: 2.5em;
+      font-size: 30px;
       cursor: pointer;
     }
     .user-profile-img {
       grid-area: right-logo;
+      display: flex;
+      justify-content: center;
+      &:hover {
+        color: #1c94e0;
+        border-bottom: 2px solid #1c94e0;
+        transition: all .15s ease-in-out;
+      }
     }
     img {
-      align-self: center;
-      width: 60px;
-      height: 60px;
+      // align-self: ;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
     }
-    span {
+    .admin {
       &:hover {
-        background-color: #eaf5fd;
-        color: #1da1f2;
-        transition: background 0.2s linear;
-        border: 1px solid #1da1f2;
+        color: #1c94e0;
+        border-bottom: 2px solid #1c94e0;
+        transition: all .15s ease-in-out;
       }
-      padding: 10px 0;
-      border-radius: 20px;
+      line-height: 46px;
+      height: 100%;
       grid-area: admin;
-      font-size: 20px;
+      font-size: 30px;
       font-weight: 600;
       align-self: center;
-      color: #1da1f2;
+      color: #66757f;
       cursor: pointer;
     }
     button {
@@ -88,14 +110,19 @@ export default {
         color: #1da1f2;
         transition: background 0.2s linear;
       }
+      height: 34px;
+      align-self: center;
+      font-size: 14px;
       cursor: pointer;
       border-radius: 100px;
       -moz-border-radius: 100px;
       -webkit-border-radius: 100px;
-      padding: 12px;
+      padding: 6px 14px;
       font-weight: 800;
       border: 1px solid #1da1f2;
       color: #1da1f2;
+      text-align: center;
+      line-height: 20px;
     }
   }
 }

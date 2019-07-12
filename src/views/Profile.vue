@@ -21,13 +21,18 @@ export default {
   },
   computed: {
     ...mapState('user', {
-      user: state => state
+      user: state => state.user
     }),
     ...mapState('account', {
       account: state => state
     }),
     tweets () {
       return this.user.Tweets.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    }
+  },
+  watch: {
+    '$route' () {
+      console.log('go')
     }
   }
 }
@@ -52,21 +57,6 @@ export default {
       grid-template-rows: 150px 30px 100px;
       grid-row-gap: 10px;
       justify-items: flex-start;
-      > img {
-        width: 100%;
-      }
-      > h3 {
-        margin: 0;
-        font-size: 22px;
-        color: #3d8293;
-      }
-      > p {
-        margin: 0;
-        line-height: 1;
-        color: #719ece;
-        font-weight: 500;
-        text-align: left;
-      }
     }
 
     > div:nth-child(2) {
@@ -74,26 +64,12 @@ export default {
       grid-template-rows: 25px 25px 25px 25px;
       grid-row-gap: 10px;
       justify-items: flex-start;
-      > p {
-        color: #4c4c4c;
-        font-weight: 500;
-        font-size: 18px;
-        margin: 0;
-      }
-    }
-    > button {
-      width: 90%;
-      font-size: 18px;
-      color: #113743;
-      background-color: #71a6d0;
-      font-weight: 500;
-      border: none;
-      border-radius: 8px;
     }
   }
   #user-tweets {
     height: 650px;
     display: grid;
+    justify-content: center;
     grid-auto-rows: 150px;
     grid-row-gap: 30px;
     overflow-y: scroll;

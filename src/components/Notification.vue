@@ -21,29 +21,31 @@ export default {
 <style lang="scss" scoped>
 @keyframes openUp {
   0% {
-    transform: translateX(100%) scale(0);
-    opacity: 0;
+    transform: translateX(100%);
+    // opacity: 0;
   }
   100% {
-    transform: translateX(0%) scale(1);
-    opacity: 1;
+    transform: translateX(0%);
+    // opacity: 1;
   }
 }
   span {
     font-size: 1.2em;
+    font-weight: 700;
     position: absolute;
     top: 90px;
     right: 20px;
-    padding: 10px 70px;
+    width: auto;
+    padding: 10px 30px;
     z-index: 99;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
     background-color: white;
-    animation: openUp 0.2s;
+    animation: openUp 0.3s;
   }
   .success {
-    border-left: 4px solid #1da1f2;
+    border-left: 6px solid #1da1f2;
   }
   .error {
-    border-left: 4px solid rgba(194, 48, 48, 0.85);
+    border-left: 6px solid rgba(194, 48, 48, 0.85);
   }
 </style>

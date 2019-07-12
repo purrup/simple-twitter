@@ -31,11 +31,12 @@ export default {
 
 <style lang="scss" scoped>
 .user {
+  background-color: #fff;
   padding: 10px;
   display: grid;
   grid-template-columns: 100px 280px;
   grid-column-gap: 20px;
-  border: 1px solid #b2b4b2;
+  border: 1px solid #a0cfee;
   border-radius: 3px;
   max-height:140px;
   > img {
@@ -51,7 +52,7 @@ export default {
     }
     > span {
       font-size: 18px;
-      color: #4d85c2;
+      color: #006dbf;
       font-weight: 600;
       text-align: left;
     }
@@ -61,14 +62,22 @@ export default {
       text-align: justify;
     }
     button {
-      width: 50%;
-      color: #113743;
-      background-color: #71a6d0;
+      &:hover {
+        background-color: #006dbf;
+        transition: background 0.2s linear;
+      }
+      width: 40%;
+      font-size: 1.1em;
+      cursor: pointer;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      // padding: 12px 20px;
+      background-color: #1DA1F2;
+      color: #fff;
       border: none;
       font-weight: 600;
       justify-self: flex-end;
-      border-radius: 4px;
-      font-size: 15px;
     }
   }
 }
