@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'navbar',
@@ -23,11 +23,12 @@ export default {
     })
   },
   methods: {
+    ...mapActions('notification', ['addSuccess']),
     async logout () {
       try {
         await this.$store.dispatch('account/logout')
         this.$router.push('/login')
-        this.$store.dispatch('notification/setSuccessMessage', 'Log Out Successfully.')
+        this.addSuccess('Successfully Log Out!')
       } catch (error) {
         console.log(error)
       }

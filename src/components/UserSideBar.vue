@@ -1,7 +1,7 @@
 <template lang="pug">
   div(id="user-profile")
     div
-      img(:src="currentUser.avatar" :alt="user.name")
+      div(:style="`background-image: url(${currentUser.avatar})`")
       h3 {{currentUser.name}}
       p(v-if="user.introduction") {{user.introduction.substring(0, 50)}}
       p(v-else) no introduction yet
@@ -57,7 +57,10 @@ export default {
     grid-template-rows: 150px 30px 100px;
     grid-row-gap: 10px;
     justify-items: flex-start;
-    > img {
+    > div {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       width: 100%;
     }
     > h3 {

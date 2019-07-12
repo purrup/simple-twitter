@@ -1,5 +1,6 @@
 import axios from '../axios.js'
 import Vue from 'vue'
+import user from './user'
 
 const state = {
   isLogin: false,
@@ -35,7 +36,7 @@ const mutations = {
   },
   CLEAR_ACCOUNT (state) {
     Object.keys(state).forEach(key => {
-      delete state[key]
+      state[key] = ''
     })
     Vue.set(state, 'isLogin', false)
     console.log('logout')
@@ -100,11 +101,14 @@ const actions = {
   },
   async putUser (context, params) {
     try {
-      context.commit('SET_ACCOUNT', params)
-      await axios('/users', {
+      const result = await axios('/users', {
         method: 'put',
-        data: JSON.stringify(params)
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data: params
       })
+      const data = result.data
+      context.commit('SET_ACCOUNT', data)
+      user.mutations.SET_USER(user.state, data)
     } catch (error) {
       throw error
     }

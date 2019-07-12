@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
+import { mapMutations } from 'vuex'
+
 // import store from '@/store'
 
 Vue.use(Router)
@@ -112,11 +114,12 @@ export default new Router({
       path: '/admin/tweets',
       name: 'admin',
       component: () => import('./views/Admin.vue'),
+      ...mapMutations('notification', ['SET_SUCCESS', 'SET_ERROR']),
       async beforeEnter (to, from, next) {
         try {
           const role = store.state.account.role
           if (role !== 'admin') {
-            await store.dispatch('notification/setErrorMessage', 'Not Authorized to Access.')
+            await store.dispatch('notification/addError', 'Not Authorized to Access.')
             next({ path: '/tweets' })
           }
           await store.dispatch('tweet/getTweets')

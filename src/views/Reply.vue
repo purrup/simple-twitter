@@ -47,9 +47,10 @@ export default {
   },
   methods: {
     ...mapActions('tweet', ['postReply']),
+    ...mapActions('notification', ['addError']),
     checkBeforePost (tweetId) {
       if (this.replyContent === '') {
-        alert('請填入資訊！')
+        this.addError('請填入至少一個字！')
         return
       }
       this.postReply({ id: tweetId, comment: this.replyContent, account: this.account })

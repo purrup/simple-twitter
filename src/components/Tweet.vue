@@ -4,11 +4,10 @@
     div
       div
         router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-        span , {{tweet.createdAt}}
+        span , {{date}}, {{time}}
       p {{tweet.description.substring(0, 50)}}
       div
-        router-link(v-if="tweet.Replies.length !== 0" :to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
-        router-link(v-else :to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply(0)
+        router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
         span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
         span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
 </template>
@@ -26,6 +25,15 @@ export default {
   computed: {
     isLiked () {
       return this.account.LikedTweets.some(item => item.id === this.tweet.id)
+    },
+    date () {
+      const dateObj = new Date(this.tweet.createdAt)
+      const month = (dateObj.getMonth() + 1) < 10 ? '0' + (dateObj.getMonth() + 1) : (dateObj.getMonth() + 1)
+      return dateObj.getFullYear() + '-' + month + '-' + dateObj.getDate()
+    },
+    time () {
+      const dateObj = new Date(this.tweet.createdAt)
+      return dateObj.getHours() + ':' + dateObj.getMinutes()
     }
   },
   methods: {

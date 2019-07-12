@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -68,30 +68,31 @@ export default {
     })
   },
   methods: {
+    ...mapActions('notification', ['addSuccess', 'addError']),
     async login () {
       try {
         await this.$store.dispatch('account/login', { email: this.email, password: this.password })
         this.$router.push('/tweets')
-        this.$store.dispatch('notification/setSuccessMessage', `Log in successfully! Hello ${this.account.name}!`)
+        const msg = `Log in successfully! Hello ${this.account.name}!`
+        this.addSuccess(msg)
       } catch (error) {
-        console.log('status:', error.response.status)
         if (error.response.status === 401) {
-          this.$store.dispatch('notification/setErrorMessage', 'Incorrect Email or Password!')
+          this.addError('Incorrect Password!')
+        } else if (error.response.status === 404) {
+          this.addError('Account not found, Please Register first.')
         }
-        console.log(error)
       }
     },
     async signup () {
       try {
         await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
         this.$router.push('/login')
-        this.$store.dispatch('notification/setSuccessMessage', 'Sign up successfully! Please log in now.')
+        const msg = 'Sign up successfully! Please log in now.'
+        this.SET_SUCCESS(msg)
       } catch (error) {
         if (error.response.status === 406) {
-          this.$store.dispatch('notification/setErrorMessage', 'This Email had been registered!')
+          this.SET_ERROR('This Email had been registered!')
         }
-        console.log(error.response.status)
-        console.log(error)
       }
     }
   }

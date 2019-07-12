@@ -1,35 +1,36 @@
-// import axios from '../axios.js'
+import { setTimeout } from 'timers'
 
 const state = {
-  successMsg: [],
-  errorMsg: []
+  successMsg: '',
+  errorMsg: ''
 }
 
 const getters = {}
 
 const mutations = {
   SET_SUCCESS (state, message) {
-    console.log('mutations:', message)
-    state.successMsg.push(message)
+    state.successMsg = message
   },
   SET_ERROR (state, message) {
-    state.errorMsg.push(message)
+    state.errorMsg = message
   },
   DELETE_MESSAGE (state) {
-    state.successMsg.length = 0
-    state.errorMsg.length = 0
+    state.successMsg = ''
+    state.errorMsg = ''
   }
 }
 const actions = {
-  setSuccessMessage (context, message) {
-    console.log('actions:', message)
+  addSuccess (context, message) {
     context.commit('SET_SUCCESS', message)
+    setTimeout(() => {
+      context.commit('SET_SUCCESS', '')
+    }, 4000)
   },
-  setErrorMessage (context, message) {
+  addError (context, message) {
     context.commit('SET_ERROR', message)
-  },
-  deleteMessage (context) {
-    context.commit('DELETE_MESSAGE')
+    setTimeout(() => {
+      context.commit('SET_ERROR', '')
+    }, 4000)
   }
 }
 

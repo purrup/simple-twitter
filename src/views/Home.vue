@@ -44,14 +44,13 @@ export default {
   },
   methods: {
     ...mapActions('tweet', ['postTweet']),
+    ...mapActions('notification', ['addError']),
     checkBeforePost () {
       if (this.description === '') {
-        // alert('請填入資訊！')
-        this.$store.dispatch('notification/setErrorMessage', 'Please tweet something before submit.')
+        this.addError('Please tweet something before submit.')
         return
       } else if (this.description.length > 140) {
-        // alert('長度必須小於140字！')
-        this.$store.dispatch('notification/setErrorMessage', '長度必須小於140字！')
+        this.addError('長度必須小於140字！')
         return
       }
       this.postTweet({ description: this.description })

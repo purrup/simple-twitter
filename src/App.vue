@@ -2,13 +2,13 @@
   div(id="app")
     navbar(v-if="$route.path !== '/login'")
     router-view
-    notification(:error="errorMsg" :success="successMsg" @deleteMessage="deleteMsg")
+    notification(:error="errorMsg" :success="successMsg")
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
 import Notification from '@/components/Notification.vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -20,12 +20,6 @@ export default {
       successMsg: state => state.successMsg,
       errorMsg: state => state.errorMsg
     })
-  },
-  methods: {
-    ...mapActions('notification', ['deleteMessage']),
-    deleteMsg () {
-      this.deleteMessage()
-    }
   }
 }
 </script>
