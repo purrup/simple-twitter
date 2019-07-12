@@ -103,12 +103,14 @@ const mutations = {
   },
   ADD_TWEET_LIKE (state, data) {
     state.tweet.LikedUsers.push({ id: data.accountId })
+    console.log('add like, current like:', state.tweet.LikedUsers.length)
   },
   REMOVE_TWEET_LIKE (state, data) {
     const index = state.tweet.LikedUsers.findIndex(
       item => item.id === data.accountId
     )
     state.tweet.LikedUsers.splice(index, 1)
+    console.log('remove like, current like:', state.tweet.LikedUsers.length)
   },
   ADD_TWEETS_LIKE (state, data) {
     const tweet = state.tweets.find(item => item.id === data.tweetId)

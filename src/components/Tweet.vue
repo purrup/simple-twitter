@@ -1,19 +1,30 @@
 <template lang="pug">
-  div(class="tweets")
-    img(:src="user.avatar" :alt="user.name")
-    div
+  #tweets
+    div(class="tweet")
+      img(:src="user.avatar" :alt="user.name")
       div
-        router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
-        span , {{date}}, {{time}}
-      p {{tweet.description.substring(0, 50)}}
-      div
-        router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
-        span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
-        span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
+        div
+          router-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
+          span , {{date}}, {{time}}
+        p {{tweet.description.substring(0, 50)}}
+        div
+          router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
+          span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
+          span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
+          button.drop-down(
+            v-if="tweet.Replies.length !== 0 && this.$route.path.includes('admin')"
+            @click="showReplies = !showReplies")
+            i(v-if="showReplies === false").fas.fa-angle-left
+            i(v-if="showReplies === true").fas.fa-angle-down
+    transition(name="reply-fade")
+      #replies(v-show="showReplies")
+          template(v-for="reply in tweet.Replies")
+            reply-card(:reply="reply" :key="reply.id")
 </template>
 
 <script>
 import { mapMutations, mapActions } from 'vuex'
+import ReplyCard from '@/components/ReplyCard.vue'
 
 export default {
   name: 'tweet',
@@ -21,6 +32,14 @@ export default {
     tweet: Object,
     user: Object,
     account: Object
+  },
+  components: {
+    ReplyCard
+  },
+  data () {
+    return {
+      showReplies: false
+    }
   },
   computed: {
     isLiked () {
@@ -68,14 +87,25 @@ export default {
       }
       this.REMOVE_ACCOUNT_LIKE({ tweetId })
       this.removeLike({ accountId, tweetId })
+    },
+    toggleReplies () {
+      this.showReplies = !this.showReplies
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.tweets {
-  max-height: 120px;
+// #tweets {
+//   width: 100%;
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   grid-template-rows: 80% 20%;
+// }
+.tweet {
+  grid-row: 1;
+  max-width: 390px;
+  max-height: 150px;
   width: 500px;
   font-size: 16px;
   background-color: #fff;
@@ -90,11 +120,12 @@ export default {
 
   > img {
     border-radius: 50%;
-    width: 85px;
-    height: 85px;
+    width: 75px;
+    height: 75px;
     align-self: center;
   }
   > div {
+    width: 100%;
     display: grid;
     grid-template-rows: 1fr 2fr 1fr;
     grid-row-gap: 5px;
@@ -111,14 +142,46 @@ export default {
       text-align: justify;
     }
     > div {
+      width: 100％;
+      display: flex;
+      // grid-template-columns: 30% 30% 50% 20%;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
       .reply {
+        // grid-column: 1;
         color: #006dbf;
         padding-right: 10px;
       }
       .like {
+        // padding-right: 90px;
         color: #fc7e82;
       }
     }
   }
+}
+.drop-down {
+  &:hover {
+    cursor: pointer;
+  }
+  font-size: 1.3em;
+  padding: 0 10px 0 120px;
+  border: none;
+  outline: none;
+  color: #666;
+}
+#replies {
+  width: 490px;
+  grid-row: 2;
+  grid-auto-rows: 120px;
+}
+.reply-fade-enter-active, .reply-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.reply-fade-enter, .reply-fade-leave-to {
+  opacity: 0;
+}
+.reply-fade-enter-to, .reply-fade-leave {
+  opacity: 1;
 }
 </style>
