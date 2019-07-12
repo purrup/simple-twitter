@@ -137,7 +137,7 @@ export default {
     #user-tweets {
       grid-row: 1;
       display: grid;
-      grid-template-rows: 27px 150px;
+      grid-template-rows: 27px 120px;
       grid-row-gap: 20px;
     }
     #replies {

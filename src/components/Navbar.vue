@@ -9,7 +9,7 @@
       template(v-if="account.isLogin")
         router-link.user-profile-img(:to="`/users/${account.id}/tweets`")
           img(:src="account.avatar" :alt="account.name")
-        button(@click="logout") Logout
+        span.logout(@click="logout") Logout
 </template>
 
 <script>
@@ -48,7 +48,7 @@ export default {
     margin: 0 auto;
     display: grid;
     grid-template-rows: 46px;
-    grid-template-areas: "home . left-logo . admin . right-logo . button";
+    grid-template-areas: "home . left-logo . admin . right-logo . logout";
     grid-template-columns: 60px 1fr 150px 1fr 60px 10px 80px 10px 80px;
     a {
       align-self: center;
@@ -64,6 +64,8 @@ export default {
       color: #66757f;
       font-size: 30px;
       cursor: pointer;
+      line-height: 46px;
+      height: 100%;
     }
     .logo {
       grid-area: left-logo;
@@ -76,6 +78,8 @@ export default {
       grid-area: right-logo;
       display: flex;
       justify-content: center;
+      line-height: 46px;
+      height: 100%;
       &:hover {
         color: #1c94e0;
         border-bottom: 2px solid #1c94e0;
@@ -83,7 +87,7 @@ export default {
       }
     }
     img {
-      // align-self: ;
+      align-self: center;
       width: 38px;
       height: 38px;
       border-radius: 50%;
@@ -94,35 +98,32 @@ export default {
         border-bottom: 2px solid #1c94e0;
         transition: all .15s ease-in-out;
       }
+      grid-area: admin;
       line-height: 46px;
       height: 100%;
-      grid-area: admin;
-      font-size: 30px;
+      font-size: 1.7em;
       font-weight: 600;
       align-self: center;
       color: #66757f;
       cursor: pointer;
     }
-    button {
-      grid-area: button;
+    .logout {
+      grid-area: logout;
       &:hover {
-        background-color: #eaf5fd;
-        color: #1da1f2;
-        transition: background 0.2s linear;
+        color: #1c94e0;
+        border-bottom: 2px solid #1c94e0;
+        transition: all .15s ease-in-out;
       }
-      height: 34px;
+      line-height: 46px;
+      height: 100%;
+      font-size: 1.2em;
       align-self: center;
-      font-size: 14px;
       cursor: pointer;
-      border-radius: 100px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      padding: 6px 14px;
+      // padding: 6px 14px;
       font-weight: 800;
-      border: 1px solid #1da1f2;
-      color: #1da1f2;
+      // border: 1px solid #1da1f2;
+      color: #66757f;
       text-align: center;
-      line-height: 20px;
     }
   }
 }
