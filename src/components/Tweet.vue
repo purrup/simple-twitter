@@ -8,14 +8,15 @@
           span , {{date}}, {{time}}
         p {{tweet.description.substring(0, 50)}}
         div
-          router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
-          span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
-          span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
-          button.drop-down(
-            v-if="tweet.Replies.length !== 0 && this.$route.path.includes('admin')"
-            @click="showReplies = !showReplies")
-            i(v-if="showReplies === false").fas.fa-angle-left
-            i(v-if="showReplies === true").fas.fa-angle-down
+          .reply-like
+            router-link(:to="`/tweets/${tweet.id}/replies`" class="reply" tag="span") Reply({{tweet.Replies.length}})
+            span(v-if="isLiked" @click="deleteLike(account.id, tweet.id)" class="like") Unlike({{tweet.LikedUsers.length}})
+            span(v-else @click="postLike(account.id, tweet.id)" class="like") Like({{tweet.LikedUsers.length}})
+      button.drop-down(
+        v-if="tweet.Replies.length !== 0 && this.$route.path.includes('admin')"
+        @click="showReplies = !showReplies")
+        i(v-if="showReplies === false").fas.fa-angle-left
+        i(v-if="showReplies === true").fas.fa-angle-down
     transition(name="reply-fade")
       #replies(v-show="showReplies")
           template(v-for="reply in tweet.Replies")
@@ -100,24 +101,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// #tweets {
-//   width: 100%;
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   grid-template-rows: 80% 20%;
-// }
 .tweet {
   grid-row: 1;
-  max-width: 390px;
+  min-width: 390px;
   max-height: 150px;
-  width: 500px;
+  width: 450px;
   font-size: 16px;
   background-color: #fff;
   border: 1px solid #a0cfee;
   border-radius: 5px;
   padding: 10px;
   display: grid;
-  grid-template-columns: 85px 1fr;
+  grid-template-columns: 85px 1fr 40px;
   grid-auto-rows: 85px;
   grid-column-gap: 20px;
   align-content: center;
@@ -147,18 +142,21 @@ export default {
     }
     > div {
       width: 100％;
-      display: flex;
-      // grid-template-columns: 30% 30% 50% 20%;
-      flex-flow: row nowrap;
-      justify-content: space-between;
+      // display: grid;
+      // grid-template-columns: 40% 10%;
+      // grid-column-gap: 50%;
+      // display: flex;
+      // flex-flow: row nowrap;
+      // justify-content: space-between;
       align-items: center;
+      .reply-like {
+        grid-column: 1;
+      }
       .reply {
-        // grid-column: 1;
         color: #006dbf;
         padding-right: 10px;
       }
       .like {
-        // padding-right: 90px;
         color: #fc7e82;
       }
     }
@@ -168,8 +166,10 @@ export default {
   &:hover {
     cursor: pointer;
   }
+  align-self: flex-end;
+  grid-column: 3;
   font-size: 1.3em;
-  padding: 0 10px 0 120px;
+  padding: 0 10px 0 10px;
   border: none;
   outline: none;
   color: #666;
