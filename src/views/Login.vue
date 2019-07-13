@@ -77,9 +77,9 @@ export default {
         this.addSuccess(msg)
       } catch (error) {
         if (error.response.status === 401) {
-          this.addError('Wrong Password!')
+          this.addError('Incorrect Password!')
         } else if (error.response.status === 404) {
-          this.addError('Account Not Found!')
+          this.addError('Account not found, Please Register first.')
         }
       }
     },

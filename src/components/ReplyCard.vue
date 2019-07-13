@@ -31,6 +31,7 @@ export default {
     grid-auto-rows: 85px;
     grid-column-gap: 20px;
     max-height: 120px;
+    max-width: 390px;
     > img {
       border-radius: 50%;
       width: 100%;

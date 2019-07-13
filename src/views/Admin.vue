@@ -9,9 +9,6 @@
         #tweets(v-show="showTweets")
           template(v-for="tweet in tweets")
             tweet#tweet(:tweet="tweet" :user="tweet.User" :account="account" :key="tweet.id")
-            #replies
-              template(v-for="reply in tweet.Replies")
-                reply-card(:reply="reply" :key="reply.id")
             .delete(@click="removeTweet(tweet)") Delete
       transition(name="fade" mode="in-out")
         #users(v-show="showUsers")
@@ -46,7 +43,8 @@ export default {
   data () {
     return {
       showTweets: true,
-      showUsers: false
+      showUsers: false,
+      showReplies: false
     }
   },
   computed: {
@@ -137,22 +135,46 @@ export default {
     }
     #tweets {
       display: grid;
-      grid-template-columns: 40% 40% 20%;
+      grid-template-columns: 30% 20%;
       grid-auto-rows: auto;
       grid-row-gap: 50px;
       justify-content: center;
       justify-items: center;
       #tweet {
         width: 95%;
-        height:80%;
+        height: auto;
         grid-column: 1;
       }
-      #replies {
-        width: 100%;
-        height:100%;
-        grid-column: 2;
+    }
+    .delete {
+      grid-column: 2;
+      color: #FFF;
+      width: 75px;
+      height: 35px;
+      align-self: self-start;
+      margin-top: 10px;
+      text-align: center;
+      text-indent: 20px;
+      padding: 0 10px;
+      border-radius: 3px;
+      line-height: 35px;
+      box-shadow: 0px 0px 1px #213741;
+      background: #f34642 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBkPSJNNDI0LjU2MiA3OC4wMjJ2NDAuMDMySDg3LjQzOFY3OC4wMjJoOTQuOTM4YzE1LjQ2NCAwIDI4LTEyLjU0NiAyOC0yOC4wMjJoOTEuMjUgYzAgMTUuNSAxMi41IDI4IDI4IDI4LjAyMkg0MjQuNTYyeiBNNDA2LjMzNCAxNDguMDc5VjQ2MkgxMDUuNjY2VjE0OC4wNzlINDA2LjMzNHogTTE5Ny4zMzMgMjEwLjUgYzAtOC4yOTEtNi43MTYtMTUuMDEyLTE1LTE1LjAxMnMtMTUgNi43MjEtMTUgMTUuMDEydjE5MC4xNTNjMCA4LjMgNi43IDE1IDE1IDE1LjAxMnMxNS02LjcyMSAxNS0xNS4wMTJWMjEwLjQ2MnogTTI3MSAyMTAuNDYyYzAtOC4yOTEtNi43MTYtMTUuMDEyLTE1LTE1LjAxMnMtMTUgNi43MjEtMTUgMTUuMDEydjE5MC4xNTNjMCA4LjMgNi43IDE1IDE1IDE1LjAxMnMxNS02LjcyMSAxNS0xNS4wMTIgVjIxMC40NjJ6IE0zNDQuNjY3IDIxMC40NjJjMC04LjI5MS02LjcxNi0xNS4wMTItMTUtMTUuMDEycy0xNSA2LjcyMS0xNSAxNS4wMTJ2MTkwLjE1M2MwIDguMyA2LjcgMTUgMTUgMTUgczE1LTYuNzIxIDE1LTE1LjAxMlYyMTAuNDYyeiIgc3R5bGU9ImZpbGw6ICNGRkY7Ii8+PC9zdmc+") no-repeat 10px center;
+      background-size: 17px;
+      -webkit-transition: background 0.3s;
+      -moz-transition: background 0.3s;
+      -o-transition: background 0.3s;
+      transition: background 0.3s;
+      &:hover {
+          background-color: #713031;
+          cursor: pointer;
       }
-
+    }
+    .fade-enter-active, .fade-leave-active {
+      transition: all 0.2s ease;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
     }
     #users {
       width: 85%;
@@ -236,35 +258,6 @@ export default {
           grid-area: Likes;
         }
       }
-    }
-    .delete {
-      grid-column: 3;
-      color: #FFF;
-      width: 75px;
-      height: 35px;
-      align-self: center;
-      text-align: center;
-      text-indent: 20px;
-      padding: 0 10px;
-      border-radius: 3px;
-      line-height: 35px;
-      box-shadow: 0px 0px 1px #213741;
-      background: #f34642 url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBkPSJNNDI0LjU2MiA3OC4wMjJ2NDAuMDMySDg3LjQzOFY3OC4wMjJoOTQuOTM4YzE1LjQ2NCAwIDI4LTEyLjU0NiAyOC0yOC4wMjJoOTEuMjUgYzAgMTUuNSAxMi41IDI4IDI4IDI4LjAyMkg0MjQuNTYyeiBNNDA2LjMzNCAxNDguMDc5VjQ2MkgxMDUuNjY2VjE0OC4wNzlINDA2LjMzNHogTTE5Ny4zMzMgMjEwLjUgYzAtOC4yOTEtNi43MTYtMTUuMDEyLTE1LTE1LjAxMnMtMTUgNi43MjEtMTUgMTUuMDEydjE5MC4xNTNjMCA4LjMgNi43IDE1IDE1IDE1LjAxMnMxNS02LjcyMSAxNS0xNS4wMTJWMjEwLjQ2MnogTTI3MSAyMTAuNDYyYzAtOC4yOTEtNi43MTYtMTUuMDEyLTE1LTE1LjAxMnMtMTUgNi43MjEtMTUgMTUuMDEydjE5MC4xNTNjMCA4LjMgNi43IDE1IDE1IDE1LjAxMnMxNS02LjcyMSAxNS0xNS4wMTIgVjIxMC40NjJ6IE0zNDQuNjY3IDIxMC40NjJjMC04LjI5MS02LjcxNi0xNS4wMTItMTUtMTUuMDEycy0xNSA2LjcyMS0xNSAxNS4wMTJ2MTkwLjE1M2MwIDguMyA2LjcgMTUgMTUgMTUgczE1LTYuNzIxIDE1LTE1LjAxMlYyMTAuNDYyeiIgc3R5bGU9ImZpbGw6ICNGRkY7Ii8+PC9zdmc+") no-repeat 10px center;
-      background-size: 17px;
-      -webkit-transition: background 0.3s;
-      -moz-transition: background 0.3s;
-      -o-transition: background 0.3s;
-      transition: background 0.3s;
-      &:hover {
-          background-color: #713031;
-          cursor: pointer;
-      }
-    }
-    .fade-enter-active, .fade-leave-active {
-      transition: all 0.2s ease;
-    }
-    .fade-enter, .fade-leave-to {
-      opacity: 0;
     }
   }
 </style>

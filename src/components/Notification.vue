@@ -1,6 +1,6 @@
 <template lang="pug">
-  span.success(v-if="success" @click="DELETE_MESSAGE") {{success}}
-  span.error(v-else-if="error" @click="DELETE_MESSAGE") {{error}}
+  span.success(v-if="success" @click="DELETE_MESSAGE" :class="{ disappear: success === '' }") {{success}}
+  span.error(v-else-if="error" @click="DELETE_MESSAGE" :class="{ disappear: !error }") {{error}}
 </template>
 
 <script>
@@ -19,16 +19,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@keyframes openUp {
+@keyframes appear {
   0% {
     transform: translateX(100%);
-    // opacity: 0;
   }
   100% {
     transform: translateX(0%);
-    // opacity: 1;
   }
 }
+@keyframes disappear {
+  100% {
+    transform: translateX(0%);
+  }
+  0% {
+    transform: translateX(100%);
+  }
+}
+
   span {
     font-size: 1.2em;
     font-weight: 700;
@@ -40,7 +47,7 @@ export default {
     z-index: 99;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
     background-color: white;
-    animation: openUp 0.3s;
+    animation: appear 0.3s;
   }
   .success {
     border-left: 6px solid #1da1f2;
