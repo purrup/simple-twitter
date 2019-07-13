@@ -3,6 +3,7 @@ import Axios from 'axios'
 // import store from '../store/index'
 
 const options = {
+  // baseURL: 'http://localhost:3000',
   baseURL: 'https://simple-twitter-ijm.herokuapp.com',
   headers: {
     'Content-Type': 'text/plain'
