@@ -20,13 +20,13 @@ const mutations = {
   }
 }
 const actions = {
-  addSuccess(context, message) {
+  addSuccess (context, message) {
     context.commit('SET_SUCCESS', message)
     setTimeout(() => {
       context.commit('SET_SUCCESS', '')
     }, 3000)
   },
-  addError(context, message) {
+  addError (context, message) {
     context.commit('SET_ERROR', message)
     setTimeout(() => {
       context.commit('SET_ERROR', '')

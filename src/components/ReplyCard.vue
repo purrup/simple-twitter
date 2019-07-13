@@ -55,7 +55,7 @@ export default {
           }
         }
         :nth-child(3) {
-          color: #4D85C2;          
+          color: #4D85C2;
         }
       }
       > p {
