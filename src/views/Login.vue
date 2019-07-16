@@ -86,11 +86,13 @@ export default {
     async signup () {
       try {
         await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
-        this.$router.push('/login')
         const msg = 'Sign up successfully! Please log in now.'
-        this.SET_SUCCESS(msg)
+        this.addSuccess(msg)
+        this.$router.push('/login')
       } catch (error) {
-        this.SET_ERROR(error)
+        if (error.response.status === 406) {
+          this.addError('Account Already Exist!')
+        }
       }
     }
   }
