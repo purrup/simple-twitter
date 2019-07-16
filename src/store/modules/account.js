@@ -31,6 +31,9 @@ const mutations = {
   SET_ACCOUNT (state, data) {
     Object.keys(data).forEach(key => {
       state[key] = data[key]
+      if (key === 'avatar' && data[key] === null) {
+        state[key] = require('@/assets/user.png')
+      }
     })
     Vue.set(state, 'isLogin', true)
   },

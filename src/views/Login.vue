@@ -32,14 +32,11 @@
               h1 Sign Up to Twitter
             form(@submit.prevent="signup")
               .form-group
-                label(for='name')
-                input.form-control(type='name', name='name', placeholder='name', v-model="name", required='')
+                input.form-control(type='text',placeholder='name', v-model="registerName", required)
               .form-group
-                label(for='email')
-                input.form-control(type='email', name='email', placeholder='email', v-model="email", required='')
+                input.form-control(type='email',placeholder='email', v-model="registerEmail", required)
               .form-group
-                label(for='password')
-                input.form-control(type='password', name='password',v-model="password", placeholder='Password', required='')
+                input.form-control(type='password', placeholder='Password', v-model="registerPassword", required)
               button(type="submit") Sign Up
 
     .footer
@@ -50,16 +47,18 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Login',
   data () {
     return {
       show: true,
-      name: '',
       email: '',
-      password: ''
+      password: '',
+      registerName: '',
+      registerEmail: '',
+      registerPassword: ''
     }
   },
   computed: {
@@ -77,18 +76,18 @@ export default {
         this.addSuccess(msg)
       } catch (error) {
         if (error.response.status === 401) {
-          this.addError('Wrong Password!')
+          this.addError('Incorrect Password!')
         } else if (error.response.status === 404) {
-          this.addError('Account Not Found!')
+          this.addError('Account not found, Please Register first.')
         }
       }
     },
     async signup () {
       try {
-        await this.$store.dispatch('account/signup', { name: this.name, email: this.email, password: this.password })
-        const msg = 'Sign up successfully! Please log in now.'
+        await this.$store.dispatch('account/signup', { name: this.registerName, email: this.registerEmail, password: this.registerPassword })
+        this.$router.push('/tweets')
+        const msg = 'Sign up successfully! Welcome!'
         this.addSuccess(msg)
-        this.$router.push('/login')
       } catch (error) {
         if (error.response.status === 406) {
           this.addError('Account Already Exist!')

@@ -24,7 +24,7 @@ export default {
   },
   beforeMount () {
     this.name = this.account.name
-    this.introduction = this.account.introduction
+    this.introduction = this.account.introduction ? this.account.introduction : ''
   },
 
   computed: {
