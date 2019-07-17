@@ -15,7 +15,8 @@ const state = {
   Tweets: [],
   Followers: [],
   Followings: [],
-  LikedTweets: []
+  LikedTweets: [],
+  Chats: []
 }
 
 const getters = {
@@ -59,6 +60,13 @@ const mutations = {
     const index = state.LikedTweets.findIndex(item => item.id === data.tweetId)
     state.LikedTweets.splice(index, 1)
     console.log('remove like from account')
+  },
+  SET_CHAT (state, data) {
+    state.Chats = data
+  },
+  ADD_CHAT (state, data) {
+    console.log(data)
+    state.Chats.push(data)
   }
 }
 const actions = {
@@ -133,6 +141,16 @@ const actions = {
       await axios(`/followships/${params.UserId}`, {
         method: 'delete'
       })
+    } catch (error) {
+      throw error
+    }
+  },
+  async getChat (context, id) {
+    try {
+      const result = await axios(`/users/${id}/chat`, {
+        method: 'get'
+      })
+      context.commit('SET_CHAT', result.data)
     } catch (error) {
       throw error
     }

@@ -75,6 +75,7 @@ export default new Router({
       async beforeEnter (to, from, next) {
         try {
           await store.dispatch('user/getUser', to.params.id)
+          await store.dispatch('account/getChat', to.params.id)
           next()
         } catch (error) {
           throw error
