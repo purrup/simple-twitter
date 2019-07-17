@@ -41,7 +41,7 @@ body {
   color: #2c3e50;
   height: 100%;
   display: grid;
-  grid-template-rows: 120px auto;
+  grid-template-rows: 100px auto;
 }
 .container {
   width: 80%;

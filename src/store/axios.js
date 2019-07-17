@@ -4,7 +4,7 @@ import Axios from 'axios'
 
 const options = {
   // baseURL: 'http://localhost:3000',
-  baseURL: 'https://simple-twitter-ijm.herokuapp.com',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Content-Type': 'text/plain'
   },

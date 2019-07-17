@@ -5,8 +5,10 @@
       router-link.user-profile-link(:to="`/users/${user.id}/tweets`" tag="span") @{{user.name}}
       p(v-if="user.introduction") {{user.introduction.substring(0, 50)}}
       p(v-else) no introduction yet
-      button(v-if="isFollowing" @click="removeFollowing({UserId:user.id})") Unfollow
-      button(v-else-if="account.id !== user.id" @click="addFollowing({UserId:user.id})") Follow
+      div
+        button(v-if="isFollowing" @click="removeFollowing({UserId:user.id})") Unfollow
+        button(v-else-if="account.id !== user.id" @click="addFollowing({UserId:user.id})") Follow
+        router-link(v-show="account.id !== user.id" :to="`/users/${user.id}/chats`" tag="button") Chat
 </template>
 
 <script>
@@ -63,12 +65,17 @@ export default {
       font-size: 13px;
       text-align: justify;
     }
-    button {
+    > div {
+      display: grid;
+      grid-template-columns: 100px 100px;
+      grid-column-gap: 10px;
+      justify-content: flex-end;
+      button {
       &:hover {
         background-color: #006dbf;
         transition: background 0.2s linear;
       }
-      width: 40%;
+      width: 100%;
       font-size: 1.1em;
       cursor: pointer;
       border-radius: 10px;
@@ -81,6 +88,8 @@ export default {
       font-weight: 600;
       justify-self: flex-end;
     }
+    }
+    
   }
 }
 </style>

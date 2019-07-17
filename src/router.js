@@ -69,6 +69,19 @@ export default new Router({
       }
     },
     {
+      path: '/users/:id/chats',
+      name: 'chat',
+      component: () => import('./views/Chat.vue'),
+      async beforeEnter (to, from, next) {
+        try {
+          await store.dispatch('user/getUser', to.params.id)
+          next()
+        } catch (error) {
+          throw error
+        }
+      }
+    },
+    {
       path: '/users/:id/followings',
       name: 'following',
       component: () => import('./views/Following.vue'),

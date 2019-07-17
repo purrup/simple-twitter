@@ -71,8 +71,8 @@ export default {
     #main {
       grid-area: left;
       display: grid;
-      grid-template-rows: 200px 450px;
-      grid-row-gap: 40px;
+      grid-template-rows: 200px 460px;
+      grid-row-gap: 30px;
       justify-content: center;
       #send-tweets {
         display: grid;
@@ -122,7 +122,7 @@ export default {
         grid-auto-rows: 120px;
         grid-auto-flow: row;
         grid-row-gap: 30px;
-        // overflow-y: scroll;
+        overflow-y: scroll;
         justify-content: center;
       }
     }
