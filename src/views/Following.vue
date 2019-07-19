@@ -17,7 +17,7 @@ import UserSideBar from '@/components/UserSideBar.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'profile',
+  name: 'following',
   components: {
     Tweet,
     UserSideBar,
@@ -35,7 +35,7 @@ export default {
       account: state => state
     }),
     followings () {
-      return this.user.Followings.slice().sort((a, b) => new Date(b.Followship.createdAt) - new Date(a.Followship.createdAt))
+      return this.user.Followings
     }
   },
   methods: {

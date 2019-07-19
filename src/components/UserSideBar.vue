@@ -42,12 +42,12 @@ export default {
     ...mapActions('account', ['addFollowing', 'removeFollowing']),
     ...mapMutations('user', ['ADD_FOLLOWER', 'REMOVE_FOLLOWER']),
     follow () {
-      this.ADD_FOLLOWER({ accountId: this.account.id })
-      this.addFollowing({ UserId: this.currentUser.id})
+      this.addFollowing({ UserId: this.currentUser.id })
+      this.ADD_FOLLOWER(this.account)
     },
     unfollow () {
       this.REMOVE_FOLLOWER({ accountId: this.account.id })
-      this.removeFollowing({ UserId: this.currentUser.id})
+      this.removeFollowing({ UserId: this.currentUser.id })
     }
   }
 
@@ -111,7 +111,7 @@ export default {
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     font-weight: 600;
-    background-color: #1DA1F2;
+    background-color: #1da1f2;
     color: #fff;
   }
 }

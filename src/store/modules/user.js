@@ -55,7 +55,8 @@ const mutations = {
     tweet.LikedUsers.splice(index, 1)
   },
   ADD_FOLLOWER (state, data) {
-    state.user.Followers.push({ id: data.accountId })
+    state.user.Followers.push(data)
+    console.log(state.user.Followers)
   },
   REMOVE_FOLLOWER (state, data) {
     const index = state.user.Followers.findIndex(item => item.id === data.accountId)

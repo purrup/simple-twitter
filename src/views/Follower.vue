@@ -17,7 +17,7 @@ import UserCard from '@/components/UserCard.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'profile',
+  name: 'follower',
   components: {
     Tweet,
     UserSideBar,
@@ -35,7 +35,7 @@ export default {
       account: state => state
     }),
     followers () {
-      return this.user.Followers.slice().sort((a, b) => new Date(b.Followship.createdAt) - new Date(a.Followship.createdAt))
+      return this.user.Followers
     }
   },
   methods: {
