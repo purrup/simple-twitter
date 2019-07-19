@@ -1,6 +1,6 @@
 <template lang="pug">
   div(class="replies")
-    img(:src="reply.User.avatar")
+    img(:src="reply.User.avatar" alt="avatar")
     div
       div
         router-link(:to="`/users/${reply.userId}/tweets`" tag="span") Replying to @{{reply.User.name}}

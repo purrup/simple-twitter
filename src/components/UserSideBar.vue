@@ -31,6 +31,9 @@ export default {
     ...mapState('account', {
       account: state => state
     }),
+    // ...mapState('user', {
+    //   user: state => state.user
+    // }),
     isFollowing () {
       return this.account.Followings.some(item => item.id === this.currentUser.id)
     }

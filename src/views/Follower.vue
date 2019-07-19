@@ -6,7 +6,7 @@
         h3  Follower
         div(id="followers")
           template(v-for="follower in followers")
-            user-card(:user="follower" :account="account")
+            user-card(:user="follower" :account="account" :key="follower.id")
 
 </template>
 

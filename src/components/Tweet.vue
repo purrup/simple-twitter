@@ -16,7 +16,7 @@
         v-if="tweet.Replies.length !== 0 && this.$route.path.includes('admin')"
         @click="showReplies = !showReplies")
         i(v-if="showReplies === false").fas.fa-angle-left
-        i(v-if="showReplies === true").fas.fa-angle-down
+        i(v-else-if="showReplies === true").fas.fa-angle-down
     transition(name="reply-fade")
       #replies(v-show="showReplies")
           template(v-for="reply in tweet.Replies")
